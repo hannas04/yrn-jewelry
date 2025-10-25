@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YRN Jewelry - The Art of Confidence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* * ======================================================
+         * 1. CORE VARIABLES & GLOBAL STYLES 
+         * ======================================================
+         */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-black: #000000;
+            --color-gold: #FFD700; /* Pure Gold */
+            --color-gold-deep: #C5B358; /* Deeper/Metallic Gold */
+            --color-white: #FFFFFF;
+            --font-body: 'Roboto', 'Helvetica Neue', sans-serif;
+            --header-height: 80px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth; 
+        }
+
+        /* Base Headings - Bold and impactful */
+        h1, h2, h3 {
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-white);
+        }
+        
+        h2.title-gold-line {
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            color: var(--color-gold);
+            border-bottom: 3px solid var(--color-gold);
+            display: inline-block;
+            text-align: center;
+        }
+
+        section {
+            /* more generous vertical spacing for a spacious layout */
+            padding: 140px 5%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            overflow: hidden; /* Important for animations/transitions */
+        }
+        
+        /* Utility Classes for Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .scroll-reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animation for elements that zoom/fade in */
+        .scale-in-reveal {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .scale-in-reveal.in-view {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* * ======================================================
+         * 2. HEADER & NAVIGATION 
+         * ======================================================
+         */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: var(--color-gold);
+            font-weight: 900;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 25px; /* Reduced gap to fit more links */
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: var(--color-white);
+            text-transform: uppercase;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s;
+            font-size: 0.9rem; /* Smaller font size for more links */
+        }
+
+        .nav-list a:hover {
+            color: var(--color-gold);
+        }
+
+        /* Gold Underline Transition */
+        .nav-list a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--color-gold);
+            left: 50%;
+            bottom: 0;
+            transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.3s;
+        }
+
+        .nav-list a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-gold);
+            cursor: pointer;
+        }
+    /* icon swap for hamburger / close (use stronger rules to avoid overrides) */
+    .menu-toggle .icon-open { display: block !important; }
+    .menu-toggle .icon-close { display: none !important; }
+    .menu-toggle.open .icon-close { display: block !important; }
+    .menu-toggle.open .icon-open { display: none !important; }
+
+        /* * ======================================================
+         * 3. ANIMATIONS & BUTTONS 
+         * ======================================================
+         */
+
+        @keyframes staggerIn {
+            from { opacity: 0; transform: scale(0.8) translateY(-20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cta-button {
+            text-decoration: none;
+            padding: 15px 40px;
+            background: var(--color-gold);
+            color: var(--color-black);
+            font-weight: 900;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); 
+        }
+
+        /* * ======================================================
+         * 4. SECTION-SPECIFIC STYLES 
+         * ======================================================
+         */
+
+        /* SECTION 1: HERO */
+
+        #hero {
+
+            
+
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            height: 100vh;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.9), 0 0 20px var(--color-gold-deep);
+            animation: staggerIn 1.5s ease-out;
+        }
+        
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1.5s ease-out 0.5s both;
+        }
+        
+        .cta-button.hero-cta {
+            animation: fadeInUp 1.5s ease-out 1s both;
+        }
+
+        /* SECTION 2: FEATURED DROPS - Horizontal Scroll */
+        #featured { min-height: 80vh; }
+        .horizontal-slider {
+            display: flex;
+            overflow-x: scroll; 
+            scroll-snap-type: x mandatory; 
+            gap: 40px;
+            padding: 20px 0;
+            width: 100%;
+            max-width: 1200px;
+            cursor: grab;
+        }
+        .horizontal-slider::-webkit-scrollbar { display: none; }
+        .horizontal-slider { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .slide-item {
+            flex-shrink: 0;
+            width: 320px;
+            height: 480px;
+            scroll-snap-align: start;
+            background-color: #111;
+            overflow: hidden;
+            position: relative;
+            border: 3px solid var(--color-gold-deep);
+            transition: transform 0.5s;
+        }
+        .slide-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.5s;
+        }
+        .slide-item h3 {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10;
+            color: var(--color-gold);
+        }
+        .slide-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(255, 215, 0, 0.2);
+        }
+        .slide-item:hover img { opacity: 1; }
+
+        /* SECTION 3: THE ARTISTRY - Split Layout & Parallax */
+        #artistry {
+            background-image: url('img-8.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .split-content {
+            display: flex;
+            gap: 5%;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+        }
+        .text-block, .image-block { flex: 1; }
+        .text-block p { font-size: 1.1rem; border-left: 3px solid var(--color-gold); padding-left: 20px; }
+        .image-block img { width: 100%; display: block; filter: saturate(1.5); }
+
+
+        /* SECTION 4: COLLECTION SHOWCASE - Grid */
+        .jewelry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            background-color: #1a1a1a;
+            border: 1px solid var(--color-gold-deep);
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .grid-item:hover img { transform: scale(1.15) rotate(2deg); }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+            color: var(--color-gold);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            font-size: 1.5rem;
+            padding-bottom: 20px;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .grid-item:hover .overlay { opacity: 1; }
+
+        /* SECTION 5: THE VISION - Quote */
+        #vision {
+            background-color: var(--color-gold);
+            color: var(--color-black);
+            overflow: hidden;
+            text-align: center;
+        }
+        #vision h2.title-gold-line { border-color: var(--color-black); color: var(--color-black); }
+
+        blockquote {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-style: italic;
+            font-weight: 900;
+            max-width: 1000px;
+            padding: 20px;
+            line-height: 1.1;
+        }
+        
+        /* SECTION 6: AMBASSADORS - Carousel */
+        #ambassadors { min-height: 80vh; }
+        .client-carousel {
+            overflow: hidden;
+            width: 100%;
+            padding: 50px 0;
+        }
+        .carousel-track {
+            display: flex;
+            width: 200%;
+        }
+        .carousel-track img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 20px;
+            border: 8px solid var(--color-gold);
+            filter: grayscale(100%) brightness(0.8);
+            transition: filter 0.5s;
+        }
+        .carousel-track img:hover {
+            filter: grayscale(0%) brightness(1);
+        }
+
+        /* * ======================================================
+         * 5. NEW SECTIONS (7-12) 
+         * ======================================================
+         */
+
+        /* SECTION 7: LUXE MATERIALS - 3D Card Flip */
+        #materials { background-color: #0c0c0c; }
+        .material-cards {
+            display: flex;
+            gap: 40px;
+            perspective: 1000px; /* For 3D transform */
+            max-width: 1200px;
+            width: 100%;
+            justify-content: center;
+        }
+        .card-container {
+            width: 300px;
+            height: 400px;
+            position: relative;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease-in-out;
+            border: 2px solid var(--color-gold-deep);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .card:hover { transform: rotateY(180deg); }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Hide the back when facing away */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            background-size: cover;
+            background-position: center;
+        }
+        .card-front-1 { background-image: url('img-8.jpg'); }
+        .card-front-2 { background-image: url('img-4.jpg'); }
+        .card-front-3 { background-image: url('img-9.jpg'); }
+        .card-back {
+            background-color: var(--color-black);
+            color: var(--color-gold);
+            transform: rotateY(180deg);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .card-back p { font-size: 1.5rem; }
+
+
+        /* SECTION 8: FULL SCREEN IMAGE WITH SLIDE-IN TEXT (image element instead of CSS background) */
+        #exclusive {
+            position: relative;
+            text-align: center;
+            min-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000; /* fallback while image loads */
+        }
+
+        /* responsive image that fills the section; object-fit controls cropping vs contain */
+        .exclusive-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* cover on desktop for immersive look */
+            object-position: center center;
+            display: block;
+            z-index: 0;
+            transform: translateY(0); /* used by parallax JS */
+            transition: transform 0.1s linear;
+        }
+
+        /* dark overlay to preserve readability */
+        .exclusive-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .exclusive-text {
+            position: relative;
+            z-index: 2;
+            border: 5px solid var(--color-gold);
+            padding: 40px;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.6);
+            /* Slide-in-from-left animation handled by JS/scroll-reveal */
+        }
+        .exclusive-text h2 { font-size: clamp(2rem, 5vw, 4rem); }
+
+        /* Small SVG icons used in section headings to match site style */
+        .section-icon {
+            width: 1.2em;
+            height: 1.2em;
+            vertical-align: middle;
+            margin-right: 0.6rem;
+            fill: var(--color-gold);
+            flex-shrink: 0;
+        }
+
+        /* SECTION 9: PRESS/MEDIA LOGOS - FADE SCROLL */
+        #press { min-height: 40vh; }
+        .logo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            max-width: 1200px;
+            opacity: 0.1; /* Initial state for fade-in effect */
+            transition: opacity 2s ease-out;
+        }
+        .logo-grid.in-view { opacity: 1; }
+        .logo-grid img { 
+            width: 150px; 
+            height: auto; 
+            filter: grayscale(100%) brightness(0.6); 
+            transition: filter 0.3s;
+        }
+        .logo-grid img:hover { filter: grayscale(0%) brightness(1); }
+
+        /* SECTION 10: DESIGN STUDIO - 2-Up Image Swap */
+        #studio { background-color: #111; }
+        .studio-showcase {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .image-swap-container {
+            flex: 1;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border: 5px solid var(--color-gold-deep);
+        }
+        .image-swap-container img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 1s ease-in-out;
+        }
+        .image-swap-container img:nth-child(2) { opacity: 0; } /* Second image starts hidden */
+        .image-swap-container:hover img:nth-child(2) { opacity: 1; }
+        .studio-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* SECTION 11: CALL TO ACTION STRIP */
+        #cta-strip {
+            min-height: 30vh;
+            background-color: var(--color-gold);
+            color: var(--color-black);
+            padding: 40px 5%;
+            text-align: center;
+            flex-direction: row;
+            gap: 50px;
+        }
+        #cta-strip h2 {
+            color: var(--color-black);
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            margin: 0;
+            flex-shrink: 0;
+        }
+        .cta-strip-button {
+            background-color: var(--color-black);
+            color: var(--color-gold);
+            border: 2px solid var(--color-black);
+            padding: 15px 35px;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .cta-strip-button:hover {
+            background-color: var(--color-gold-deep);
+            color: var(--color-black);
+            transform: translateY(-5px);
+        }
+
+        /* SECTION 12: CONTACT (Original Section 7) */
+        #contact { background-color: var(--color-black); }
+        .social-links {
+            display: flex;
+            gap: 40px;
+            margin-top: 3rem;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--color-gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border: 2px solid var(--color-gold);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .social-icon svg { fill: currentColor; width: 30px; height: 30px; }
+        .social-icon:hover { background-color: var(--color-gold); color: var(--color-black); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #0d0d0d;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* * ======================================================
+         * 6. RESPONSIVENESS (Mobile First)
+         * ======================================================
+         */
+        @media (max-width: 1024px) {
+            .nav-list { gap: 15px; }
+            .nav-list a { font-size: 0.8rem; }
+            .material-cards, .studio-showcase { flex-direction: column; }
+            .card-container { width: 100%; max-width: 400px; height: 300px; }
+            #cta-strip { flex-direction: column; gap: 20px; }
+            /* slightly reduce section padding on medium screens while keeping spacious feel */
+            section { padding: 110px 5%; }
+        }
+        
+        @media (max-width: 768px) {
+            
+            /* mobile: keep good spacing but avoid overly tall sections */
+            section { min-height: 80vh; padding: 80px 5%; }
+            
+            .menu-toggle { display: block; }
+            .nav-menu { position: relative; }
+            .nav-list {
+                position: absolute;
+                top: var(--header-height);
+                right: 0;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.95);
+                width: 100vw;
+                padding: 20px 0;
+                transform: translateX(100%);
+                transition: transform 0.4s ease-out;
+                z-index: 999;
+                border-top: 1px solid var(--color-gold);
+            }
+
+            .nav-list.open { transform: translateX(0); }
+            .nav-list li { text-align: center; padding: 10px 0; }
+            .nav-list a::after { display: none; }
+
+            /* Section 3 */
+            .split-content { flex-direction: column; padding: 20px; }
+            .text-block, .image-block { margin-bottom: 20px; }
+            
+            /* Section 12 */
+            .social-links { flex-direction: column; gap: 20px; }
+
+            /* Mobile: ensure exclusive image doesn't zoom/crop on small screens */
+            #exclusive { min-height: 60vh; }
+
+            .exclusive-image {
+                object-fit: contain; /* show full image on small screens without cropping */
+                height: auto;
+                width: 100%;
+            }
+
+            /* Make exclusive text fit comfortably on small screens */
+            .exclusive-text {
+                padding: 20px;
+                max-width: 95%;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header id="main-header">
+        <div class="logo">YRN JEWELRY</div>
+        <nav class="nav-menu">
+            <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">
+                <!-- hamburger / menu icon -->
+                <svg class="icon-open" viewBox="0 0 24 24" fill="currentColor" width="30px" height="30px" aria-hidden="true" focusable="false"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                <!-- close / cancel icon -->
+                <svg class="icon-close" viewBox="0 0 24 24" fill="currentColor" width="30px" height="30px" aria-hidden="true" focusable="false"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.89 4.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z"/></svg>
+            </button>
+            <ul class="nav-list">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#featured">Drops</a></li>
+                <li><a href="#artistry">Craft</a></li>
+                <li><a href="#gallery">Collection</a></li>
+                <li><a href="#materials">Luxe</a></li> <li><a href="#exclusive">Private</a></li> <li><a href="#press">Press</a></li> <li><a href="#studio">Design</a></li> 
+                <!-- <li><a href="#ambassadors">Faces</a></li> -->
+                <!-- <li><a href="#contact">Connect</a></li> -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="full-screen dark-bg">
+            <div class="hero-content">
+                <h1 class="stagger-in">YRN JEWELRY</h1>
+                <p class="fade-in-up">CONFIDENCE CAST IN GOLD. LUXURY FOR THE STREET KING.</p>
+                <a href="#featured" class="cta-button hero-cta">EXPLORE THE ART</a>
+            </div>
+        </section>
+
+        <section id="featured">
+            <h2 class="title-gold-line scroll-reveal"><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2L4 9l8 13 8-13-8-7zm0 2.2L18.6 9 12 18.8 5.4 9 12 4.2z"/></svg>Featured Drops</h2>
+            <div class="horizontal-slider scroll-reveal" role="list">
+                <div class="slide-item" role="listitem"><img src="img-1.jpg" alt="Diamond Watch"><h3>The Timepiece V2</h3></div>
+                <div class="slide-item" role="listitem"><img src="img-10.jpg" alt="Pendant"><h3>The Pharaoh Pendant</h3></div>
+                <div class="slide-item" role="listitem"><img src="img-2.jpg" alt="Custom Grill"><h3>Iced Out Grillz</h3></div>
+                <div class="slide-item" role="listitem"><img src="img-3.jpg" alt="Chains"><h3>Cuban Link Master</h3></div>
+                <div class="slide-item" role="listitem"><img src="img-4.jpg" alt="Rings"><h3>The Signet Ring</h3></div>
+            </div>
+        </section>
+
+        <section id="artistry" class="parallax-section dark-bg">
+            <h2 class="title-gold-line scroll-reveal"><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l1.5 3 3.5.5-3 2 1 3-3-1-3 1 1-3-3-2 3.5-.5L12 2z"/></svg>The Craft: Precision & Power</h2>
+            <div class="split-content">
+                <div class="text-block scroll-reveal">
+                    <p>Every piece is a testament to meticulous detail, forged by master jewelers who understand that true luxury is earned, not given. This isn't just jewelry; it's **armor** built for the boldest statements. We select only the finest VVS grade diamonds and 18K solid gold.</p>
+                </div>
+                <div class="image-block scroll-reveal">
+                    <img src="img-5.jpg" alt="Jeweler working on a gold piece">
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="grid-section">
+            <h2 class="title-gold-line scroll-reveal"><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 10l3-3 4 6 4-6 3 3V6l-3 1-4-4-4 4L4 6v4z"/></svg>The Collection</h2>
+            <div class="jewelry-grid">
+                <div class="grid-item scroll-reveal"><img src="img-8.jpg" alt="Rings"><div class="overlay">RINGS</div></div>
+                <div class="grid-item scroll-reveal"><img src="img-6.jpg" alt="Chains"><div class="overlay">CHAINS</div></div>
+                <div class="grid-item scroll-reveal"><img src="img-7.jpg" alt="Pendants"><div class="overlay">PENDANTS</div></div>
+                <div class="grid-item scroll-reveal"><img src="img-8.jpg" alt="Bracelets"><div class="overlay">BRACELETS</div></div>
+            </div>
+        </section>
+        
+        <section id="vision" class="center-text gold-bg">
+            <h2 class="title-gold-line scroll-reveal">The YRN Philosophy</h2>
+            <blockquote class="scroll-reveal">"We don't follow trends. **We define the moment.** Get yours."</blockquote>
+        </section>
+
+        <section id="materials">
+            <h2 class="title-gold-line scroll-reveal"><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l1.5 3 3.5.5-3 2 1 3-3-1-3 1 1-3-3-2 3.5-.5L12 2z"/></svg>Luxe Materials: Purity & Power</h2>
+            <p class="scroll-reveal" style="margin-bottom: 30px;">Hover over the cards to see the details.</p>
+            <div class="material-cards">
+                <div class="card-container scroll-reveal">
+                    <div class="card">
+                        <div class="card-face card-front-1">
+                            <h3 style="color: white; text-shadow: 1px 1px 5px #000;">18K Gold</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <p>SOLID GOLD. NO FILLING. ONLY THE BEST FOR THE BEST.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-container scroll-reveal">
+                    <div class="card">
+                        <div class="card-face card-front-2">
+                            <h3 style="color: white; text-shadow: 1px 1px 5px #000;">VVS Diamonds</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <p>VS/VVS CLARITY. ICED OUT TO BLIND THE COMPETITION.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-container scroll-reveal">
+                    <div class="card">
+                        <div class="card-face card-front-3">
+                            <h3 style="color: white; text-shadow: 1px 1px 5px #000;">Precious Stones</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <p>SAPPHIRES & RUBIES. HAND-SET BY MASTER CRAFTSMEN.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exclusive">
+            <!-- responsive image replaces CSS background for more control -->
+            <img src="img-8.jpg" alt="Private Vault" class="exclusive-image">
+            <div class="exclusive-overlay" aria-hidden="true"></div>
+            <div class="exclusive-text scale-in-reveal">
+                <h2 class="title-gold-line" style="border: none;">THE PRIVATE VAULT</h2>
+                <p style="font-size: 1.2rem;">Access to the YRN Private Vault is by request only. This is where bespoke designs and one-of-one pieces reside. Contact us directly to begin your custom journey.</p>
+                <a href="#contact" class="cta-button" style="margin-top: 20px;">REQUEST ACCESS</a>
+            </div>
+        </section>
+
+        <section id="press">
+            <h2 class="title-gold-line scroll-reveal"><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.85L19.335 24 12 19.77 4.665 24 6 15.598 0 9.748l8.332-1.73L12 .587z"/></svg>Seen On The Biggest Stages</h2>
+            <div class="logo-grid scroll-reveal">
+                <img src="img-9.jpg" alt="Rolling Stone Logo">
+                <img src="img-10.jpg" alt="Vogue Logo">
+                <img src="img-8.jpg" alt="BET Logo">
+                <img src="img-6.jpg">
+                <img src="img-3.jpg" alt="Complex Logo">
+            </div>
+        </section>
+
+        <section id="studio">
+            <h2 class="title-gold-line scroll-reveal"><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21h18L3 3v18zM6 18l9-9 3 3-9 9H6v-3z"/></svg>The Design Studio</h2>
+            <div class="studio-showcase">
+                <div class="image-swap-container scroll-reveal">
+                    <img src="img-2.jpg" alt="Jewelry Design Sketch">
+                    <img src="img-3.jpg" alt="3D CAD Model">
+                </div>
+                <div class="studio-text scroll-reveal">
+                    <p style="font-size: 1.2rem;">From the initial **sketch** to the final **3D render**, every YRN piece is designed with an uncompromising vision. We blend classic precision with modern, fearless aesthetic. This is the future of luxury.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="cta-strip">
+            <h2 class="scale-in-reveal">READY TO SHINE?</h2>
+            <a href="#contact" class="cta-button cta-strip-button scale-in-reveal">START YOUR COMMISSION</a>
+        </section>
+
+        <section id="ambassadors" class="dark-bg">
+            <h2 class="title-gold-line scroll-reveal"><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2s4 3 4 6c0 3-2 5-4 7-2-2-4-4-4-7 0-3 4-6 4-6z"/></svg>The Faces of YRN</h2>
+            <p style="margin-bottom: 30px;" class="scroll-reveal">Spotted in the streets, the studio, and the suite. Real confidence, real jewelry.</p>
+            <div class="client-carousel scroll-reveal">
+                <div class="carousel-track">
+                    <img src="img-4.jpg" alt="YRN client 1">
+                    <img src="img-10.jpg" alt="YRN client 2">
+                    <img src="img-12.jpg" alt="YRN client 3">
+                    <img src="img-10.jpg" alt="YRN client 4">
+                    <img src="img-7.jpg" alt="YRN client 5">
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 class="title-gold-line scroll-reveal"><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10.59 13.41a3 3 0 0 0 4.24 0l1.77-1.77a3 3 0 0 0-4.24-4.24L10.59 9.17a1 1 0 0 1-1.41-1.41l1.77-1.77a5 5 0 0 1 7.07 7.07l-1.77 1.77a5 5 0 0 1-7.07 0l-1.41-1.41a1 1 0 0 1 1.41-1.41l1.41 1.41z"/></svg>Connect With Us</h2>
+            <p class="scroll-reveal">Your next statement piece awaits. Reach out directly to discuss private commissions, check availability, or view our full lookbook.</p>
+            <div class="social-links scroll-reveal">
+                <a href="https://instagram.com/YRNJewelryOfficial" target="_blank" class="social-icon">
+                    <!-- Instagram-like camera glyph (single-color, decorative) -->
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.5A3.5 3.5 0 1 0 15.5 12 3.5 3.5 0 0 0 12 8.5zm4.75-3a.875.875 0 1 0 .875.875A.88.88 0 0 0 16.75 5.5z"/>
+                    </svg>
+                    <span>Instagram: @YRNJewelryOfficial</span>
+                </a>
+                <a href="#" target="_blank" class="social-icon">
+                    <!-- More accurate WhatsApp-like badge (single-color) -->
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <!-- outer bubble -->
+                        <path d="M12 2C6.48 2 2 6.48 2 12c0 2.21.72 4.25 1.93 5.9L3 22l4.2-1.1c.9.6 1.9.9 2.8.9 5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
+                        <!-- handset -->
+                        <path d="M15.1 13.2c-.3-.15-1.8-.9-2.07-1-.28-.1-.44-.15-.63.15-.19.3-.74.98-.9 1.18-.17.2-.34.22-.63.08-.3-.14-1.27-.46-2.47-1.52-.92-.79-1.5-1.69-1.67-2.06-.16-.37 0-.57.12-.74.12-.17.26-.44.4-.66.13-.23.07-.4-.03-.55-.1-.15-.91-2.22-1-2.74-.1-.52-.39-.46-.56-.47-.18-.01-.38-.01-.58-.01-.2 0-.43.09-.66.36-.23.27-.88.92-.88 2.24s.9 2.66 1.03 2.85c.13.19 1.9 2.98 4.9 4.66 3 .68 4 1 4.6 1 .6 0 1.1-.2 1.3-.34.2-.14.8-.6.9-1.48.1-.88.1-1.61-.2-1.86-.3-.25-1.2-.95-1.5-1.1z"/>
+                    </svg>
+                    <span>WhatsApp: Message Us</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 YRN Jewelry. All Rights Reserved. Designed for confidence.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // ------------------------------------------------------------------
+            // 1. MOBILE MENU TOGGLE 
+            // ------------------------------------------------------------------
+            const header = document.getElementById('main-header');
+            const navList = header.querySelector('.nav-list');
+            const menuToggle = header.querySelector('.menu-toggle');
+            const navLinks = navList.querySelectorAll('a');
+
+            const toggleMenu = () => {
+                const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                const newExpanded = !isExpanded;
+                menuToggle.setAttribute('aria-expanded', String(newExpanded));
+                // toggle nav open/close
+                navList.classList.toggle('open', newExpanded);
+                // toggle button icon (CSS shows/hides icons based on .open)
+                menuToggle.classList.toggle('open', newExpanded);
+                // update accessible label
+                menuToggle.setAttribute('aria-label', newExpanded ? 'Close navigation' : 'Open navigation');
+            };
+
+            menuToggle.addEventListener('click', toggleMenu);
+            
+            // Close menu when a link is clicked (for single-page navigation)
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navList.classList.contains('open')) {
+                        toggleMenu();
+                    }
+                });
+            });
+            
+            // ------------------------------------------------------------------
+            // 2. SCROLL REVEAL ANIMATIONS (Intersection Observer)
+            // ------------------------------------------------------------------
+            
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        // Keep observing the logo-grid for the fade-in effect, but unobserve others
+                        if (!entry.target.classList.contains('logo-grid')) {
+                            observer.unobserve(entry.target); 
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px -15% 0px', 
+                threshold: 0.1 
+            });
+
+            // Apply observer to all elements with the 'scroll-reveal' and 'scale-in-reveal' classes
+            document.querySelectorAll('.scroll-reveal, .scale-in-reveal, .logo-grid').forEach(element => {
+                observer.observe(element);
+            });
+
+
+            // ------------------------------------------------------------------
+            // 3. PARALLAX EFFECT (Artistry and Exclusive sections)
+            // ------------------------------------------------------------------
+            const parallaxSection1 = document.getElementById('artistry');
+            const parallaxSection2 = document.getElementById('exclusive');
+            const parallaxImage2 = parallaxSection2 ? parallaxSection2.querySelector('.exclusive-image') : null;
+
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.pageYOffset;
+
+                if (parallaxSection1) {
+                    parallaxSection1.style.backgroundPositionY = `${scrollPosition * 0.25}px`;
+                }
+                if (parallaxImage2) {
+                    // Slower parallax for a deeper sense of depth — translate the image element
+                    parallaxImage2.style.transform = `translateY(${scrollPosition * 0.15}px)`;
+                }
+            });
+
+
+            // ------------------------------------------------------------------
+            // 4. INFINITE CAROUSEL (Faces of YRN)
+            // ------------------------------------------------------------------
+            const carouselTrack = document.querySelector('.carousel-track');
+            
+            if (carouselTrack) {
+                const images = Array.from(carouselTrack.children);
+                // Clone two sets for a smoother loop
+                images.forEach(img => {
+                    carouselTrack.appendChild(img.cloneNode(true));
+                    carouselTrack.appendChild(img.cloneNode(true));
+                });
+
+                let currentPosition = 0;
+                const speed = 0.4;
+                
+                function autoScroll() {
+                    currentPosition -= speed;
+                    const trackWidth = carouselTrack.scrollWidth / 3; 
+                    
+                    if (Math.abs(currentPosition) >= trackWidth) {
+                        currentPosition = 0;
+                    }
+
+                    carouselTrack.style.transform = `translateX(${currentPosition}px)`;
+                    requestAnimationFrame(autoScroll);
+                }
+
+                autoScroll();
+            }
+        });
+    </script>
+</body>
+</html>
