@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Checker & Calculator - Laramiss Luxury</title>
+    
+    <!-- Load Google Fonts (Rubik & Prata) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prata&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            /* Laramiss Palette */
+            --color-bg: #0f0f0f;       
+            --color-card: #222222;     
+            --color-text-main: #ffffff;
+            --color-text-muted: #aaaaaa;
+            --color-gold: #D4AF37;     
+            --color-bullish: #0ecb81;  
+            --color-bearish: #f6465d;  
+            --color-accent: #333333;   
+            
+            --font-prata: 'Prata', serif;
+            --font-rubik: 'Rubik', sans-serif;
+
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: var(--font-rubik);
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 40px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* --- LAYOUT UTILS --- */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .text-gold { color: var(--color-gold); }
+        .text-green { color: var(--color-bullish); }
+        .text-red { color: var(--color-bearish); }
+
+        /* --- HEADER --- */
+        header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--color-accent);
+            margin-bottom: 2rem;
+            background: rgba(15, 15, 15, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            color: var(--color-text-muted);
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            transition: color 0.2s;
+        }
+        .back-btn:hover { color: var(--color-gold); }
+
+        .app-title { 
+            font-family: var(--font-prata);
+            font-size: 1.2rem; 
+            letter-spacing: 0.05em; 
+        }
+
+        /* --- CARDS GENERAL --- */
+        .card {
+            background-color: var(--color-card);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-header {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-title {
+            font-family: var(--font-prata);
+            font-size: 1.1rem;
+            color: var(--color-text-main);
+            letter-spacing: 0.05em;
+        }
+
+        /* --- LIVE RATES SECTION --- */
+        .rate-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .rate-row:last-child { border-bottom: none; }
+
+        .rate-name { font-weight: 500; font-size: 1rem; display: flex; align-items: center; gap: 0.5rem; color: var(--color-text-muted); }
+        .rate-value { font-family: var(--font-prata); font-size: 1.2rem; color: var(--color-gold); }
+        .rate-change { font-family: var(--font-rubik); font-size: 0.8rem; font-weight: 500; margin-left: 0.5rem; }
+
+        /* --- CSS CANDLESTICK CHART --- */
+        .chart-container {
+            height: 200px;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Grid lines */
+        .chart-grid {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .grid-line { width: 100%; height: 1px; background: rgba(255,255,255,0.03); }
+
+        /* Candles */
+        .candle {
+            width: 8px;
+            position: relative;
+            z-index: 1;
+            border-radius: 2px;
+            animation: growCandle 1s ease-out forwards;
+            transform-origin: bottom;
+        }
+
+        /* Wick */
+        .candle::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            background-color: inherit;
+            top: -10px; /* dynamic top/height simulation */
+            bottom: -10px;
+            opacity: 0.7;
+        }
+
+        .candle.green { background-color: var(--color-bullish); height: 40%; margin-bottom: 30%; }
+        .candle.green::before { height: 140%; top: -20%; } 
+
+        .candle.red { background-color: var(--color-bearish); height: 30%; margin-bottom: 40%; }
+        .candle.red::before { height: 130%; top: -15%; }
+
+        @keyframes growCandle {
+            from { transform: scaleY(0); opacity: 0; }
+            to { transform: scaleY(1); opacity: 1; }
+        }
+
+        /* Specific mock heights for visual variety */
+        .c1 { height: 40px; margin-bottom: 50px; }
+        .c2 { height: 60px; margin-bottom: 30px; }
+        .c3 { height: 20px; margin-bottom: 90px; } 
+        .c4 { height: 80px; margin-bottom: 20px; }
+        .c5 { height: 50px; margin-bottom: 60px; }
+        .c6 { height: 90px; margin-bottom: 40px; }
+        .c7 { height: 30px; margin-bottom: 100px; }
+        .c8 { height: 70px; margin-bottom: 60px; }
+        .c9 { height: 45px; margin-bottom: 85px; }
+        .c10 { height: 100px; margin-bottom: 30px; } 
+
+        /* --- CALCULATOR FORM --- */
+        .form-group { margin-bottom: 1.5rem; }
+        
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-select, .form-input {
+            width: 100%;
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-accent);
+            color: var(--color-text-main);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: var(--font-rubik);
+            appearance: none; /* Remove default arrow */
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        /* Custom Dropdown Arrow */
+        .select-wrapper { position: relative; }
+        .select-wrapper::after {
+            content: '\f078';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-muted);
+            pointer-events: none;
+            font-size: 0.8rem;
+        }
+
+        .form-select:focus, .form-input:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            box-shadow: 0 0 0 1px var(--color-gold);
+        }
+
+        .calc-btn {
+            width: 100%;
+            background: var(--color-gold);
+            color: var(--color-dark);
+            border: none;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: var(--font-rubik);
+        }
+
+        .calc-btn:active { transform: scale(0.98); }
+        .calc-btn:hover { opacity: 0.9; }
+
+        /* --- RESULT SECTION --- */
+        .result-box {
+            margin-top: 1.5rem;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-label { color: var(--color-text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
+        .result-price { font-family: var(--font-prata); font-size: 2.5rem; color: var(--color-gold); line-height: 1.1; }
+        
+        .disclaimer {
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            line-height: 1.4;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .disclaimer strong { color: var(--color-bearish); }
+
+        /* --- FOOTER --- */
+        .footer-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-top: 3rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="back-btn" aria-label="Back to Home">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <div class="app-title">
+                YRN <span class="text-gold" style="font-size: 0.8em; letter-spacing: 0.2em;">RATE CHECKER</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Live Mock Rates Card -->
+        <section class="card">
+            <div class="card-header">
+                <i class="fas fa-chart-line text-gold"></i>
+                <span class="card-title">Live Market Rates (NGN)</span>
+            </div>
+            
+            <div class="rate-row">
+                <div class="rate-name">
+                    <i class="fas fa-ring" style="color: #FFD700;"></i> Gold (24k)
+                </div>
+                <div class="rate-value">
+                    ₦115,000 <span style="font-size: 0.8rem; color: #666; font-family: var(--font-rubik);">/g</span>
+                    <span class="rate-change text-green"><i class="fas fa-caret-up"></i> 1.2%</span>
+                </div>
+            </div>
+
+            <div class="rate-row">
+                <div class="rate-name">
+                    <i class="far fa-gem" style="color: #b9f2ff;"></i> Diamond
+                </div>
+                <div class="rate-value">
+                    ₦7,500,000 <span style="font-size: 0.8rem; color: #666; font-family: var(--font-rubik);">/ct</span>
+                    <span class="rate-change text-red"><i class="fas fa-caret-down"></i> 0.5%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CSS Candlestick Chart -->
+        <section class="card">
+            <div class="card-header">
+                <i class="fas fa-poll text-gold"></i>
+                <span class="card-title">Market Trend (Gold/NGN)</span>
+            </div>
+            
+            <div class="chart-container">
+                <!-- Background Grid Lines -->
+                <div class="chart-grid">
+                    <div class="grid-line"></div>
+                    <div class="grid-line"></div>
+                    <div class="grid-line"></div>
+                    <div class="grid-line"></div>
+                    <div class="grid-line"></div>
+                </div>
+
+                <!-- Candles (Green=Bullish, Red=Bearish) -->
+                <div class="candle red c1"></div>
+                <div class="candle green c2"></div>
+                <div class="candle red c3"></div>
+                <div class="candle green c4"></div>
+                <div class="candle red c5"></div>
+                <div class="candle green c6"></div>
+                <div class="candle red c7"></div>
+                <div class="candle green c8"></div>
+                <div class="candle red c9"></div>
+                <div class="candle green c10"></div>
+            </div>
+            <div class="flex-between" style="margin-top: 10px; font-size: 0.7rem; color: var(--color-text-muted);">
+                <span>09:00 AM</span>
+                <span>03:00 PM</span>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section class="card">
+            <div class="card-header">
+                <i class="fas fa-calculator text-gold"></i>
+                <span class="card-title">Value Calculator</span>
+            </div>
+
+            <form id="calcForm" onsubmit="calculatePrice(event)">
+                
+                <!-- Action -->
+                <div class="form-group">
+                    <label class="form-label">I want to</label>
+                    <div class="select-wrapper">
+                        <select class="form-select" id="action">
+                            <option value="buy">Buy</option>
+                            <option value="sell">Sell</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Item Type -->
+                <div class="form-group">
+                    <label class="form-label">Asset Type</label>
+                    <div class="select-wrapper">
+                        <select class="form-select" id="asset">
+                            <option value="gold">Gold (Grams)</option>
+                            <option value="diamond">Diamond (Carats)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Quantity -->
+                <div class="form-group">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" class="form-input" id="quantity" placeholder="e.g. 5.5" step="0.01" min="0" required>
+                </div>
+
+                <button type="submit" class="calc-btn">Calculate Estimated Price</button>
+            </form>
+
+            <!-- Result Box -->
+            <div id="resultBox" class="result-box">
+                <div class="result-label">Estimated Total Value</div>
+                <div class="result-price" id="priceDisplay">₦0.00</div>
+                <div class="disclaimer">
+                    <strong>IMPORTANT:</strong> This calculated price is an estimate based on mock rates. Actual market prices are highly dynamic, subject to real-time fluctuation, and may differ significantly at the time of transaction.
+                </div>
+            </div>
+
+        </section>
+
+        <div class="footer-note">
+            &copy; 2025 YRN Jewelers. Trading data provided for simulation only.
+        </div>
+
+    </main>
+
+    <script>
+        // --- CONFIGURATION (MOCK RATES IN NAIRA) ---
+        const RATES = {
+            gold: 115000,    // Per Gram in NGN
+            diamond: 7500000 // Per Carat in NGN
+        };
+
+        function calculatePrice(e) {
+            e.preventDefault();
+
+            // Get Input Values
+            const action = document.getElementById('action').value; 
+            const asset = document.getElementById('asset').value;
+            const quantity = parseFloat(document.getElementById('quantity').value);
+
+            // Validation
+            if (isNaN(quantity) || quantity <= 0) {
+                alert("Please enter a valid quantity greater than 0.");
+                return;
+            }
+
+            // Calculation
+            const rate = RATES[asset];
+            const total = quantity * rate;
+
+            // Formatting to Naira (NGN)
+            const formatter = new Intl.NumberFormat('en-NG', {
+                style: 'currency',
+                currency: 'NGN',
+                minimumFractionDigits: 2
+            });
+
+            // Display Logic
+            const resultBox = document.getElementById('resultBox');
+            const priceDisplay = document.getElementById('priceDisplay');
+
+            priceDisplay.textContent = formatter.format(total);
+            
+            // Show result box with animation reset
+            resultBox.style.display = 'none'; 
+            resultBox.offsetHeight; /* trigger reflow */
+            resultBox.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
