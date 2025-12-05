@@ -1049,6 +1049,40 @@
             .section-title { font-size: 2rem; }
             .scroll-top-btn { right: 30px; bottom: 100px; } 
         }
+
+        /* --- OFFICE SECTION (NEW ADDITION) --- */
+        .office-section {
+            padding: 8rem 0;
+            background-color: var(--color-mid-dark);
+        }
+        .office-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        @media (min-width: 992px) {
+            .office-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .office-img-box {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: var(--shadow-soft);
+        }
+        .office-img-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .office-details {
+            padding: 1rem;
+        }
+        .office-address-box {
+            border-left: 2px solid var(--color-gold);
+            padding-left: 20px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -1099,7 +1133,7 @@
             <span class="hero-pre-title reveal">Jewels That Define You</span>
             <h2 class="hero-title reveal" style="transition-delay: 0.1s;">The Perfect Jewels<br>For You</h2>
             <div class="button-group reveal" style="transition-delay: 0.2s;">
-                <a href="#collection" class="btn btn-primary">View Collection</a>
+                <a href="catalogue.html" class="btn btn-primary">View Collection</a>
                 <a href="rate.html" class="btn btn-secondary">Check Rate</a>
             </div>
         </div>
@@ -1116,18 +1150,13 @@
                 <img src="yrn-about.jpg" alt="Craftsmanship" loading="lazy">
             </div>
             <div class="about-content reveal" style="transition-delay: 0.2s;">
-                <!-- <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
-                    <div class="section-icon"><i class="fas fa-crown"></i></div>
-                    <p class="section-subtitle">Since 1995</p>
-                    <h3 class="section-title mb-4" style="text-align: left; font-size: 2.5rem;">Crafting Timeless Elegance</h3>
-                </div> -->
                 <p style="color: #ccc; margin-bottom: 1.5rem;">
-                    YRN was born from a passion for crafting enduring beauty. We blend timeless design with modern precision to create jewelry that tells a unique story. Every piece is ethically sourced and meticulously inspected to guarantee the highest standard of luxury.
+                    Abubakar was born from a passion for crafting enduring beauty. We blend timeless design with modern precision to create jewelry that tells a unique story. Every piece is ethically sourced and meticulously inspected to guarantee the highest standard of luxury.
                 </p>
                 <div class="ceo-quote">
                     "Every piece of jewelry we craft is a promise of timeless elegance and unparalleled quality."
                 </div>
-                <p class="text-gold" style="font-weight: bold;">— Abuja S., Founder & CEO</p>
+                <p class="text-gold" style="font-weight: bold;">— Abubakar Ishaq ., Founder & CEO</p>
             </div>
         </div>
     </section>
@@ -1145,25 +1174,19 @@
                 <div class="feature-service-step reveal">
                     <div class="feature-service-icon-wrapper"><i class="fas fa-shipping-fast"></i></div>
                     <h4 class="feature-service-title">Insured Delivery</h4>
-                    <p class="feature-service-desc">Guaranteed safe and tracked delivery globally, with full insurance on every shipment.</p>
+                    <p class="feature-service-desc">At YRN, we know the streets, and we know logistics. That’s why every piece of jewelry that leaves our Yaba HQ is fully insured until it lands in your hands</p>
                 </div>
                 
                 <div class="feature-service-step reveal" style="transition-delay: 0.1s;">
                     <div class="feature-service-icon-wrapper"><i class="fas fa-tools"></i></div>
-                    <h4 class="feature-service-title">Expert Repair & Maintenance</h4>
-                    <p class="feature-service-desc">Lifetime repair service and complimentary deep cleaning by our master technicians.</p>
+                    <h4 class="feature-service-title">quality Jewels</h4>
+                    <p class="feature-service-desc">At YRN, quality isn’t an option; it’s the baseline. We are bringing a new standard of jewelry to Yaba, curated for those who know the difference between costume jewelry and the real dea</p>
                 </div>
                 
                 <div class="feature-service-step reveal" style="transition-delay: 0.2s;">
                     <div class="feature-service-icon-wrapper"><i class="fas fa-hand-holding-usd"></i></div>
                     <h4 class="feature-service-title">Trade-in / Sell Us Gold</h4>
                     <p class="feature-service-desc">Offer your old pieces or gold bullion for a competitive trade-in value towards a new acquisition.</p>
-                </div>
-                
-                <div class="feature-service-step reveal" style="transition-delay: 0.3s;">
-                    <div class="feature-service-icon-wrapper"><i class="fas fa-comments-dollar"></i></div>
-                    <h4 class="feature-service-title">Private Buying Consultation</h4>
-                    <p class="feature-service-desc">Book a private session with our concierge to select or customize your perfect jewel.</p>
                 </div>
             </div>
         </div>
@@ -1185,7 +1208,6 @@
                     </div>
                     <h4 class="product-title">Solitaire Diamond Ring</h4>
                     <p class="product-meta">18k White Gold, 2.5ct</p>
-                    <p class="product-price">$12,500</p>
                 </div>
 
                 <div class="product-card reveal" style="transition-delay: 0.1s;" onclick="openLightbox('https://images.unsplash.com/photo-1599643478518-17488fbbcd75?q=80&w=1000&auto=format&fit=crop')">
@@ -1194,7 +1216,6 @@
                     </div>
                     <h4 class="product-title">Royal Gold Necklace</h4>
                     <p class="product-meta">24k Pure Gold, Handcrafted</p>
-                    <p class="product-price">$8,200</p>
                 </div>
 
                 <div class="product-card reveal" style="transition-delay: 0.2s;" onclick="openLightbox('https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000&auto=format&fit=crop')">
@@ -1203,7 +1224,6 @@
                     </div>
                     <h4 class="product-title">Vintage Gold Bangle</h4>
                     <p class="product-meta">Heritage Collection</p>
-                    <p class="product-price">$5,400</p>
                 </div>
 
                 <div class="product-card reveal" style="transition-delay: 0.3s;" onclick="openLightbox('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=1000&auto=format&fit=crop')">
@@ -1212,7 +1232,6 @@
                     </div>
                     <h4 class="product-title">Pearl Drop Earrings</h4>
                     <p class="product-meta">South Sea Pearls</p>
-                    <p class="product-price">$3,100</p>
                 </div>
             </div>
             
@@ -1262,15 +1281,7 @@
                         <i class="fas fa-shipping-fast feature-icon"></i>
                     </div>
                     <h4 class="feature-name">Insured Global Shipping</h4>
-                    <p class="feature-desc">We deliver securely to over 50 countries with full insurance coverage on transit.</p>
-                </div>
-                <div class="feature-item reveal" style="transition-delay: 0.2s;">
-                    <div class="feature-header">
-                        <span class="feature-num">03</span>
-                        <i class="fas fa-undo feature-icon"></i>
-                    </div>
-                    <h4 class="feature-name">Lifetime Warranty</h4>
-                    <p class="feature-desc">We stand by our craftsmanship. Enjoy complimentary cleaning and repair for life.</p>
+                    <p class="feature-desc">Get secure, insured shipping to any location.</p>
                 </div>
             </div>
         </div>
@@ -1280,16 +1291,12 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item reveal">
-                    <p class="stat-number">25+</p>
+                    <p class="stat-number">10+</p>
                     <p class="stat-label">Years of Mastery</p>
                 </div>
                 <div class="stat-item reveal" style="transition-delay: 0.1s;">
-                    <p class="stat-number">10k+</p>
+                    <p class="stat-number">5k</p>
                     <p class="stat-label">Happy Clients</p>
-                </div>
-                <div class="stat-item reveal" style="transition-delay: 0.2s;">
-                    <p class="stat-number">50+</p>
-                    <p class="stat-label">Countries Served</p>
                 </div>
                 <div class="stat-item reveal" style="transition-delay: 0.3s;">
                     <p class="stat-number">5k</p>
@@ -1301,17 +1308,14 @@
 
     <section class="media-showcase-section" style="padding-bottom: 8rem;">
         <div class="container">
-            
             <div class="media-container reveal" style="margin-top: 4rem;">
                 <img src="img-2.jpg" alt="Jewelry Model Showcase" style="filter: grayscale(100%);">
-                
                 <div class="video-overlay" id="video-play-overlay">
                     <div class="play-button" onclick="openLightbox('yrn-video.mp4')">
                         <i class="fas fa-play"></i>
                     </div>
                 </div>
             </div>
-            
         </div>
     </section>
 
@@ -1418,7 +1422,6 @@
                         </h4>
                         <p> Test the smooth movement of a clasp,
                             examine the setting of a stone, and appreciate the weight of quality materials. </p>
-                        <!-- <a href="#" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a> -->
                     </div>
                 </article>
                 
@@ -1430,7 +1433,6 @@
                         </h4>
                         <p> Jewelry sizing is nuanced. 
                             Try on rings, bracelets, and necklaces to ensure they sit comfortably and securely.</p>
-                        <!-- <a href="#" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a> -->
                     </div>
                 </article>
 
@@ -1458,35 +1460,55 @@
             <div class="faq-container">
                 <div class="faq-item reveal">
                     <button class="faq-question">
-                        Do you offer custom jewelry designs?
+                        Where is YRN located?
                         <i class="fas fa-plus faq-icon"></i>
                     </button>
                     <div class="faq-answer">
-                        Yes, we specialize in bespoke pieces. You can book a consultation with our master jewelers to bring your vision to life. The process typically takes 4-6 weeks from design to delivery.
+                       We are proudly based in Yaba, Lagos. While we operate primarily as an online store to serve customers globally, our roots and operations are firmly planted in the mainland..
                     </div>
                 </div>
                 <div class="faq-item reveal">
                     <button class="faq-question">
-                        What is your return policy?
+                        Does your jewelry fade or tarnish?
                         <i class="fas fa-plus faq-icon"></i>
                     </button>
                     <div class="faq-answer">
-                        We offer a 30-day no-questions-asked return policy for all standard collection items in their original condition. Custom pieces are non-refundable but can be adjusted for fit.
+                        Quality is our priority. We stock premium, high-grade jewelry designed to withstand daily wear. Our pieces are hypoallergenic and non-tarnish, meaning they keep their shine even in the Lagos heat.
                     </div>
                 </div>
                 <div class="faq-item reveal">
                     <button class="faq-question">
-                        Are your diamonds conflict-free?
+                        Is my delivery safe?
                         <i class="fas fa-plus faq-icon"></i>
                     </button>
                     <div class="faq-answer">
-                        Absolutely. We adhere strictly to the Kimberley Process and only source diamonds from suppliers who can guarantee ethical and conflict-free origins.
+                       Absolutely. We offer Insured Delivery on all orders. This means your package is fully covered from the moment it leaves our Yaba HQ until it is signed for by you. If it gets lost or damaged in transit, we replace it or refund you
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <section class="office-section">
+        <div class="container office-grid">
+            <div class="office-img-box reveal">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="YRN Office Yaba">
+            </div>
+            <div class="office-details reveal">
+                <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+                    <p class="section-subtitle">Visit Us</p>
+                    <h3 class="section-title">YRN Headquarters</h3>
+                </div>
+                <p style="color: #ccc; margin-bottom: 2rem;">
+                    Come experience the shine in person. Our secure facility in Yaba is open for consultations, sizing, and pickups.
+                </p>
+                <div class="office-address-box">
+                    <h4 style="color: var(--color-white); margin-bottom: 10px;"> Yaba, Lagos</h4>
+                    <p style="color: var(--color-text-gray); margin: 0;">Suite 12, YRN Plaza<br>Tejuosho Road, Yaba<br>Lagos, Nigeria</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="cta-section">
         <div class="container">
             <div class="cta-box reveal">
@@ -1514,10 +1536,10 @@
 
                 <div class="footer-col footer-links">
                     <h5>Collections</h5>
-                    <a href="#">Bridal Sets</a>
-                    <a href="#">New Arrivals</a>
-                    <a href="#">Best Sellers</a>
-                    <a href="#">Watches</a>
+                    <a href="catalogue.html">Bridal Sets</a>
+                    <a href="catalogue.html">New Arrivals</a>
+                    <a href="catalogue.html">Best Sellers</a>
+                    <a href="catalogue.html">Watches</a>
                 </div>
 
                 <div class="footer-col footer-links">
@@ -1525,15 +1547,6 @@
                     <a href="#"><i class="fas fa-map-marker-alt" style="width:20px"></i> Lagos, Nigeria</a>
                     <a href="#"><i class="fas fa-phone" style="width:20px"></i> +234 818 572 7263</a>
                     <a href="#"><i class="fas fa-envelope" style="width:20px"></i> concierge@yrn.com</a>
-                </div>
-
-                <div class="footer-col">
-                    <h5>Newsletter</h5>
-                    <p style="color:#888; font-size: 0.9rem;">Subscribe for exclusive offers and early access to new drops.</p>
-                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed successfully!');">
-                        <input type="email" class="newsletter-input" placeholder="Your email..." required>
-                        <button type="submit" class="newsletter-btn">GO</button>
-                    </form>
                 </div>
             </div>
 
