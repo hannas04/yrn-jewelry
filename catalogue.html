@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="YRN The Jeweller - Exclusive Collection Catalogue. Showcasing 50 luxury pieces for inquiry and negotiation.">
+    <meta name="description" content="YRN The Jeweller - Exclusive Collection Catalogue. Showcasing luxury pieces for inquiry and negotiation.">
     <title>Catalogue - YRN The Jeweller</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,23 +13,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
-        /* --- CORE VARIABLES & STYLES --- */
+        /* --- CORE VARIABLES --- */
         :root {
             --color-dark: #0f0f0f;
             --color-mid-dark: #1a1a1a;
             --color-card-bg: #222222;
             --color-gold: #D4AF37;
+            --color-gold-light: #F4D03F;
             --color-white: #ffffff;
             --color-text-gray: #aaaaaa;
+            
             --font-prata: 'Prata', serif;
             --font-rubik: 'Rubik', sans-serif;
+            
             --transition-smooth: all 0.3s ease;
             --color-whatsapp: #25D366;
-            --color-status-new: #4CAF50;
-            --color-status-old: #FF5722;
-            --color-status-rare: #D4AF37;
+            
+            /* Status Colors */
+            --status-new-bg: rgba(76, 175, 80, 0.15);
+            --status-new-text: #66bb6a;
+            --status-rare-bg: rgba(212, 175, 55, 0.15);
+            --status-rare-text: #D4AF37;
+            --status-old-bg: rgba(255, 87, 34, 0.15);
+            --status-old-text: #ff8a65;
         }
 
+        /* --- RESET & BASE --- */
         body, html {
             font-family: var(--font-rubik);
             background-color: var(--color-dark);
@@ -42,13 +51,14 @@
 
         a { text-decoration: none; color: inherit; transition: var(--transition-smooth); }
         ul { list-style: none; padding: 0; margin: 0; }
+        button { border: none; outline: none; background: none; font-family: inherit; }
         
         /* Utility */
         .container { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
-        .text-gold { color: var(--color-gold); }
         .flex { display: flex; }
-        .justify-between { justify-content: space-between; }
         .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .text-center { text-align: center; }
 
         /* --- HEADER --- */
         header {
@@ -61,23 +71,24 @@
             backdrop-filter: blur(10px);
         }
 
-        .logo-title { font-family: var(--font-prata); font-size: 1.5rem; margin: 0; letter-spacing: 0.1em; }
+        .logo-title { font-family: var(--font-prata); font-size: 1.5rem; margin: 0; letter-spacing: 0.1em; color: var(--color-white); }
+        .logo-sub { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--color-gold); display: block; }
         .back-link { font-size: 0.9rem; color: var(--color-text-gray); display: flex; align-items: center; gap: 0.5rem; }
         .back-link:hover { color: var(--color-gold); }
 
         /* --- CATALOGUE HERO --- */
         .cat-hero {
-            padding: 4rem 0 2rem;
+            padding: 3rem 0 2rem;
             text-align: center;
             background: radial-gradient(circle at center, #1a1a1a 0%, #0f0f0f 100%);
         }
-        .cat-title { font-family: var(--font-prata); font-size: 3rem; margin-bottom: 0.5rem; }
-        .cat-subtitle { color: var(--color-text-gray); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.15em; }
+        .cat-title { font-family: var(--font-prata); font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--color-gold); }
+        .cat-subtitle { color: var(--color-text-gray); font-size: 0.9rem; letter-spacing: 0.05em; max-width: 600px; margin: 0 auto; }
 
-        /* --- CATEGORY NAVIGATION --- */
+        /* --- CATEGORY NAVIGATION (SCROLLABLE) --- */
         .category-nav-wrapper {
             position: sticky;
-            top: 73px; /* Height of header */
+            top: 73px; /* Height of header approx */
             background: var(--color-dark);
             z-index: 900;
             border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -87,23 +98,24 @@
 
         .category-scroll {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
             overflow-x: auto;
             padding-bottom: 5px;
             scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE 10+ */
         }
-        .category-scroll::-webkit-scrollbar { display: none; }
+        .category-scroll::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
         .cat-btn {
             background: var(--color-mid-dark);
             border: 1px solid rgba(255,255,255,0.1);
             color: var(--color-white);
-            padding: 0.6rem 1.5rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 50px;
             white-space: nowrap;
             cursor: pointer;
             transition: var(--transition-smooth);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -140,7 +152,15 @@
         }
 
         .filter-group { margin-bottom: 2rem; }
-        .filter-title { font-family: var(--font-prata); font-size: 1.1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-gold); padding-bottom: 0.5rem; display: inline-block; }
+        .filter-title { 
+            font-family: var(--font-prata); 
+            font-size: 1.1rem; 
+            margin-bottom: 1rem; 
+            border-bottom: 1px solid var(--color-gold); 
+            padding-bottom: 0.5rem; 
+            display: inline-block; 
+            color: var(--color-white);
+        }
         
         .filter-option {
             display: flex;
@@ -149,6 +169,7 @@
             cursor: pointer;
             color: var(--color-text-gray);
             font-size: 0.9rem;
+            transition: color 0.2s;
         }
         .filter-option:hover { color: var(--color-gold); }
         .filter-checkbox {
@@ -156,13 +177,10 @@
             accent-color: var(--color-gold);
             width: 16px;
             height: 16px;
+            cursor: pointer;
         }
 
-        /* Range Slider Styling (Retained for filter functionality even without price focus) */
-        .price-range { width: 100%; margin: 1rem 0; accent-color: var(--color-gold); }
-        .price-labels { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--color-text-gray); }
-
-        /* Mobile Filter Toggle */
+        /* Mobile Filter Toggle Button */
         .mobile-filter-toggle {
             display: none;
             width: 100%;
@@ -174,10 +192,12 @@
             cursor: pointer;
             text-align: center;
             font-weight: bold;
+            border-radius: 8px;
         }
+        
         @media (max-width: 992px) {
             .mobile-filter-toggle { display: block; }
-            .sidebar { display: none; }
+            .sidebar { display: none; margin-bottom: 2rem; }
             .sidebar.active { display: block; position: relative; top: 0; }
         }
 
@@ -188,83 +208,136 @@
             gap: 2rem;
         }
 
+        /* MOBILE VIEW OPTIMIZATION (2 Columns) */
+        @media (max-width: 600px) {
+            .product-grid {
+                grid-template-columns: 1fr 1fr; /* Force 2 columns */
+                gap: 10px; /* Tighter gap for mobile */
+            }
+            .container { padding: 0 1rem; }
+        }
+
+        /* --- PRODUCT CARD --- */
         .prod-card {
             background: var(--color-card-bg);
             border-radius: 8px;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid rgba(255,255,255,0.05);
-            position: relative;
             display: flex;
             flex-direction: column;
+            opacity: 0; /* Hidden initially for animation */
+            animation: fadeIn 0.6s ease forwards;
         }
 
-        .prod-card:hover { transform: translateY(-5px); border-color: var(--color-gold); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        .prod-card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--color-gold); 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); 
+        }
 
         .prod-img-wrapper {
             position: relative;
             aspect-ratio: 1;
             overflow: hidden;
+            background-color: #000;
         }
 
-        /* Optimization for Lazy Loading */
         .prod-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease, opacity 0.3s ease;
+            opacity: 0; /* For lazy load fade-in */
         }
+        .prod-img.loaded { opacity: 1; }
+
         .prod-card:hover .prod-img { transform: scale(1.1); }
 
-        .prod-info { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
-        
-        .prod-cat { font-size: 0.75rem; color: var(--color-text-gray); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
-        .prod-title { font-family: var(--font-prata); font-size: 1.2rem; margin-bottom: 0.8rem; line-height: 1.2; }
-        
-        /* Specs Table (Updated to show Status and Grams) */
+        /* Badges */
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            z-index: 2;
+        }
+
+        .prod-info { 
+            padding: 1.2rem; 
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        @media (max-width: 600px) {
+            .prod-info { padding: 0.8rem; }
+        }
+
+        .prod-cat { font-size: 0.7rem; color: var(--color-text-gray); text-transform: uppercase; margin-bottom: 0.3rem; }
+        .prod-title { 
+            font-family: var(--font-prata); 
+            font-size: 1.1rem; 
+            margin-bottom: 0.8rem; 
+            line-height: 1.3;
+            color: var(--color-white);
+            /* Truncate long text */
+            white-space: nowrap; 
+            overflow: hidden;
+            text-overflow: ellipsis; 
+        }
+
+        @media (max-width: 600px) {
+            .prod-title { font-size: 0.95rem; }
+        }
+
+        /* Specs Table */
         .prod-specs {
             display: flex;
             justify-content: space-between;
             background: rgba(255,255,255,0.03);
-            padding: 0.8rem 1rem;
+            padding: 0.6rem 0.8rem;
             border-radius: 4px;
             margin-bottom: 1rem;
-            font-size: 0.85rem;
         }
         .spec-item { display: flex; flex-direction: column; align-items: center; }
-        .spec-label { font-size: 0.65rem; color: var(--color-text-gray); margin-bottom: 2px; text-transform: uppercase; }
-        .spec-val { font-weight: 500; color: var(--color-white); }
-        .spec-status { color: var(--color-status-rare); font-weight: bold; }
-        .status-new { color: var(--color-status-new); }
-        .status-old { color: var(--color-status-old); }
-        .status-rare { color: var(--color-status-rare); }
+        .spec-label { font-size: 0.6rem; color: var(--color-text-gray); text-transform: uppercase; }
+        .spec-val { font-size: 0.8rem; font-weight: 500; color: var(--color-white); }
 
-        /* Footer Action Area (Now only has WhatsApp button) */
+        /* Footer Action */
         .prod-footer {
             margin-top: auto;
-            display: flex;
-            justify-content: center; /* Center the single button */
-            align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 1rem;
+            text-align: center;
         }
-        
-        /* WhatsApp Button */
+
         .whatsapp-btn {
             background-color: var(--color-whatsapp);
             color: #fff;
-            padding: 0.6rem 1.2rem;
+            padding: 0.7rem 1rem;
             border-radius: 50px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
+            width: 100%;
             transition: background-color 0.2s ease;
+            box-sizing: border-box;
         }
-        .whatsapp-btn:hover {
-            background-color: #128C7E; /* Darker green on hover */
+        
+        @media (max-width: 600px) {
+            .whatsapp-btn { font-size: 0.75rem; padding: 0.5rem; }
         }
+
+        .whatsapp-btn:hover { background-color: #128C7E; }
 
         /* --- FOOTER --- */
         footer {
@@ -281,19 +354,18 @@
 
     <header>
         <div class="container flex justify-between items-center">
-            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
             <div class="text-center">
                 <h1 class="logo-title">YRN</h1>
-                <span style="font-size: 0.6rem; letter-spacing: 0.2em; color: var(--color-gold);">CATALOGUE</span>
+                <span class="logo-sub">CATALOGUE</span>
             </div>
-            <div style="width: 100px;"></div>
-        </div>
+            <div style="width: 60px;"></div> </div>
     </header>
 
     <section class="cat-hero">
         <div class="container">
             <h2 class="cat-title">The Exclusive Collection</h2>
-            <p class="cat-subtitle">Showing **50** Masterfully Crafted Pieces for Inquiry</p>
+            <p class="cat-subtitle">Explore 50 masterfully crafted pieces available for immediate inquiry.</p>
         </div>
     </section>
 
@@ -319,23 +391,23 @@
             </button>
             
             <aside class="sidebar" id="filterSidebar">
-                <div class="filter-group">
+                <div class="filter-group" data-group="status">
                     <h4 class="filter-title">Product Status</h4>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="new"> New Arrival</label>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="rare"> Rare Find</label>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="old"> Pre-Owned</label>
                 </div>
 
-                <div class="filter-group">
-                    <h4 class="filter-title">Quality / Purity</h4>
+                <div class="filter-group" data-group="quality">
+                    <h4 class="filter-title">Purity</h4>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="18k"> 18k Gold</label>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="22k"> 22k Gold</label>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="24k"> 24k Pure</label>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="platinum"> Platinum</label>
                 </div>
 
-                <div class="filter-group">
-                    <h4 class="filter-title">Weight (Grams)</h4>
+                <div class="filter-group" data-group="weight">
+                    <h4 class="filter-title">Weight Class</h4>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="light"> Light (< 10g)</label>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="medium"> Medium (10-50g)</label>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="heavy"> Heavy (> 50g)</label>
@@ -354,43 +426,38 @@
     </footer>
 
     <script>
-        // --- DATA & HELPER FUNCTIONS ---
+        // --- DATA SIMULATION ---
         const PRODUCT_COUNT = 50;
         const PRODUCT_NAMES = [
-            "Imperial Solitaire Ring", "Cuban Link Necklace", "Luxury Gold Bangle", "Pearl Drop Earrings", 
-            "Vintage Brooch", "Diamond Tennis Bracelet", "Emerald Pendant", "Sapphire Studs",
+            "Imperial Solitaire", "Cuban Link Chain", "Royal Gold Bangle", "Pearl Drop Set", 
+            "Vintage Brooch", "Tennis Bracelet", "Emerald Pendant", "Sapphire Studs",
             "Rose Gold Band", "Chain Bracelet", "Heritage Locket", "Signature Watch",
-            "Opal Ring", "Ruby Necklace", "Silver Cuff", "CZ Diamond Set", 
-            "Platinum Ring", "Gold Hoops", "Tanzanite Necklace", "Beaded Bracelet"
+            "Opal Ring", "Ruby Necklace", "Silver Cuff", "Diamond Set", 
+            "Platinum Ring", "Gold Hoops", "Tanzanite Chain", "Beaded Bracelet"
         ];
         const QUALITY_LABELS = ["18k", "22k", "24k Pure", "Platinum", "VVS1 Diamond"];
         
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
+        function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 
-        // Generate 50 unique items
+        // Generate 50 consistent items
         const ALL_PRODUCTS = Array.from({ length: PRODUCT_COUNT }, (_, index) => {
             const name = PRODUCT_NAMES[index % PRODUCT_NAMES.length] + ' #' + (index + 1);
             
+            // Logic for Status
             const statusIndex = getRandomInt(1, 10);
-            let status = 'New Arrival';
-            let statusClass = 'status-new';
-            let statusValue = 'new';
-
+            let status = { text: 'New Arrival', val: 'new', color: 'var(--status-new-text)', bg: 'var(--status-new-bg)' };
+            
             if (statusIndex > 7) {
-                status = 'Rare Find';
-                statusClass = 'status-rare';
-                statusValue = 'rare';
+                status = { text: 'Rare Find', val: 'rare', color: 'var(--status-rare-text)', bg: 'var(--status-rare-bg)' };
             } else if (statusIndex < 4) {
-                status = 'Pre-Owned';
-                statusClass = 'status-old';
-                statusValue = 'old';
+                status = { text: 'Pre-Owned', val: 'old', color: 'var(--status-old-text)', bg: 'var(--status-old-bg)' };
             }
 
-            const gramsRaw = getRandomInt(5, 150) / 10; // Weights between 0.5g and 15g
+            // Logic for Weight
+            const gramsRaw = getRandomInt(5, 150) / 10; 
             const weightCategory = gramsRaw < 10 ? 'light' : (gramsRaw < 50 ? 'medium' : 'heavy');
 
+            // Logic for Category & Quality
             const category = ["ring", "necklace", "bangle", "earring", "watch", "diamond", "ring"][getRandomInt(0, 6)];
             const quality = QUALITY_LABELS[getRandomInt(0, QUALITY_LABELS.length - 1)];
 
@@ -399,12 +466,10 @@
                 name: name,
                 category: category,
                 status: status,
-                statusClass: statusClass,
-                statusValue: statusValue,
                 grams: gramsRaw.toFixed(1) + 'g', 
                 weightCategory: weightCategory,
                 quality: quality,
-                imgUrl: `https://picsum.photos/seed/${200 + index}/350/350` // Unique image seed
+                imgUrl: `https://picsum.photos/seed/${200 + index}/350/350`
             };
         });
 
@@ -413,25 +478,30 @@
         
         function renderProducts(productsToRender) {
             grid.innerHTML = '';
+            
+            if (productsToRender.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #666;">No pieces found matching your criteria.</div>';
+                return;
+            }
+
             const fragment = document.createDocumentFragment();
 
-            productsToRender.forEach(p => {
+            productsToRender.forEach((p, idx) => {
                 const card = document.createElement('article');
                 card.className = 'prod-card';
-                
-                // Data attributes for filtering
-                card.setAttribute('data-category', p.category);
-                card.setAttribute('data-status', p.statusValue);
-                card.setAttribute('data-weight', p.weightCategory);
+                // Slight stagger for animation
+                card.style.animationDelay = `${idx * 0.05}s`;
 
                 card.innerHTML = `
                     <div class="prod-img-wrapper">
                         <img data-src="${p.imgUrl}" alt="${p.name}" class="prod-img" loading="lazy">
-                        <span class="badge" style="background-color: var(--color-${p.statusValue}); color: ${p.statusValue === 'new' ? '#000' : '#fff'};">${p.status}</span>
+                        <span class="badge" style="background-color: ${p.status.bg}; color: ${p.status.color};">
+                            ${p.status.text}
+                        </span>
                     </div>
                     
                     <div class="prod-info">
-                        <div class="prod-cat">${p.category.toUpperCase()}</div>
+                        <div class="prod-cat">${p.category}</div>
                         <h3 class="prod-title">${p.name}</h3>
                         
                         <div class="prod-specs">
@@ -440,16 +510,16 @@
                                 <span class="spec-val">${p.grams}</span>
                             </div>
                             <div class="spec-item">
-                                <span class="spec-label">Quality</span>
+                                <span class="spec-label">Purity</span>
                                 <span class="spec-val">${p.quality}</span>
                             </div>
                         </div>
 
                         <div class="prod-footer">
-                            <a href="https://wa.me/2348185727263?text=Hello%20YRN,%20I%20am%20interested%20in%20the%20${encodeURIComponent(p.name)}%20(${p.grams})%20from%20your%20catalogue.%20Please%20send%20price%20and%20availability%20details." 
+                            <a href="https://wa.me/2348185727263?text=Hello%20YRN,%20I%20am%20interested%20in%20the%20${encodeURIComponent(p.name)}%20(${p.grams})%20from%20your%20catalogue." 
                                target="_blank" 
                                class="whatsapp-btn">
-                               <i class="fab fa-whatsapp"></i> Negotiate Price
+                               <i class="fab fa-whatsapp"></i> Negotiate
                             </a>
                         </div>
                     </div>
@@ -458,109 +528,84 @@
             });
             grid.appendChild(fragment);
             
-            // Apply lazy loading logic after rendering
-            lazyLoadImages();
+            // Trigger IntersectionObserver for images
+            observeImages();
         }
 
-        // --- FILTER & SORT LOGIC ---
-        
-        let currentFilters = { category: 'all', status: [], quality: [], weight: [] };
-        
+        // --- IMAGE OBSERVER (Lazy Load Fade-In) ---
+        function observeImages() {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        // Move data-src to src
+                        img.src = img.getAttribute('data-src');
+                        img.onload = () => img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            }, { rootMargin: '50px' });
+
+            document.querySelectorAll('.prod-img').forEach(img => imageObserver.observe(img));
+        }
+
+        // --- FILTER LOGIC ---
+        let activeFilters = { category: 'all', status: [], quality: [], weight: [] };
+
         function applyFilters() {
-            let filteredProducts = ALL_PRODUCTS;
-            
-            // 1. Filter by Category (top bar)
-            if (currentFilters.category !== 'all') {
-                filteredProducts = filteredProducts.filter(p => p.category === currentFilters.category);
+            let filtered = ALL_PRODUCTS;
+
+            // 1. Category Filter
+            if (activeFilters.category !== 'all') {
+                filtered = filtered.filter(p => p.category === activeFilters.category);
             }
 
-            // 2. Filter by Checkboxes (sidebar)
-            if (currentFilters.status.length > 0) {
-                filteredProducts = filteredProducts.filter(p => currentFilters.status.includes(p.statusValue));
+            // 2. Sidebar Filters (Multi-select)
+            if (activeFilters.status.length > 0) {
+                filtered = filtered.filter(p => activeFilters.status.includes(p.status.val));
             }
-            // Add more complex filter logic here (quality, weight) if desired
+            if (activeFilters.quality.length > 0) {
+                filtered = filtered.filter(p => activeFilters.quality.some(q => p.quality.toLowerCase().includes(q)));
+            }
+            if (activeFilters.weight.length > 0) {
+                filtered = filtered.filter(p => activeFilters.weight.includes(p.weightCategory));
+            }
 
-            renderProducts(filteredProducts);
+            renderProducts(filtered);
         }
 
-        // Event listeners for Category Buttons
-        const categoryButtons = document.querySelectorAll('.cat-btn');
-        categoryButtons.forEach(btn => {
+        // --- EVENT LISTENERS ---
+        
+        // Category Buttons
+        document.querySelectorAll('.cat-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                categoryButtons.forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                currentFilters.category = btn.dataset.filter;
+                activeFilters.category = btn.dataset.filter;
                 applyFilters();
             });
         });
 
-        // Event listeners for Checkboxes
-        const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
-        filterCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', (e) => {
+        // Sidebar Checkboxes
+        document.querySelectorAll('.filter-checkbox').forEach(cb => {
+            cb.addEventListener('change', (e) => {
+                // Find the parent group type using data-group
+                const groupType = e.target.closest('.filter-group').dataset.group;
                 const value = e.target.value;
-                const filterType = e.target.closest('.filter-group').querySelector('.filter-title').textContent.trim().split(' ')[0].toLowerCase();
-                
+
                 if (e.target.checked) {
-                    currentFilters[filterType].push(value);
+                    activeFilters[groupType].push(value);
                 } else {
-                    currentFilters[filterType] = currentFilters[filterType].filter(v => v !== value);
+                    activeFilters[groupType] = activeFilters[groupType].filter(item => item !== value);
                 }
                 applyFilters();
             });
         });
 
-        // --- PERFORMANCE OPTIMIZATION (Lazy Loading) ---
-        function lazyLoadImages() {
-            if ('IntersectionObserver' in window) {
-                const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const image = entry.target;
-                            // Use data-src logic as a fallback/cleaner implementation
-                            if (image.dataset.src) { 
-                                image.src = image.dataset.src;
-                            } else {
-                                image.src = image.getAttribute('src');
-                            }
-                            image.removeAttribute('loading');
-                            observer.unobserve(image);
-                        }
-                    });
-                }, { rootMargin: '100px 0px' }); // Load images slightly before they appear
-
-                lazyImages.forEach(image => {
-                    // Temporarily move src to data-src to prevent immediate loading
-                    if (!image.dataset.src) {
-                        image.dataset.src = image.src;
-                        image.src = ''; // Clear source to enable true lazy loading
-                    }
-                    imageObserver.observe(image);
-                });
-            }
-        }
-        
-        // --- INITIALIZATION ---
+        // --- INIT ---
         window.addEventListener('load', () => {
-            // Initial Render of all 50 products
             renderProducts(ALL_PRODUCTS);
-            // Apply lazy loading after the initial render
-            lazyLoadImages();
-            
-            // Mobile filter toggle logic
-            const mobileFilterToggle = document.querySelector('.mobile-filter-toggle');
-            if (mobileFilterToggle) {
-                mobileFilterToggle.addEventListener('click', () => {
-                    document.getElementById('filterSidebar').classList.toggle('active');
-                });
-            }
         });
-        
-        // --- Mobile Menu Toggle ---
-        function toggleMenu() {
-            document.getElementById('mobileMenu').classList.toggle('open');
-        }
 
     </script>
 </body>

@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rate Checker & Calculator - Laramiss Luxury</title>
     
-    <!-- Load Google Fonts (Rubik & Prata) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prata&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
@@ -300,6 +298,43 @@
 
         .disclaimer strong { color: var(--color-bearish); }
 
+        /* --- BENEFITS SECTION (NEW) --- */
+        .benefit-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .benefit-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+        .benefit-icon {
+            color: var(--color-gold);
+            font-size: 1.4rem;
+            min-width: 40px;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .benefit-content h3 {
+            font-family: var(--font-prata);
+            font-size: 1.1rem;
+            color: var(--color-text-main);
+            margin-bottom: 0.3rem;
+        }
+
+        .benefit-content p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+
         /* --- FOOTER --- */
         .footer-note {
             text-align: center;
@@ -312,7 +347,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <div class="container header-content">
             <a href="index.html" class="back-btn" aria-label="Back to Home">
@@ -326,7 +360,6 @@
 
     <main class="container">
         
-        <!-- Live Mock Rates Card -->
         <section class="card">
             <div class="card-header">
                 <i class="fas fa-chart-line text-gold"></i>
@@ -338,7 +371,7 @@
                     <i class="fas fa-ring" style="color: #FFD700;"></i> Gold (24k)
                 </div>
                 <div class="rate-value">
-                    ₦115,000 <span style="font-size: 0.8rem; color: #666; font-family: var(--font-rubik);">/g</span>
+                    ₦140,000 <span style="font-size: 0.8rem; color: #666; font-family: var(--font-rubik);">/g</span>
                     <span class="rate-change text-green"><i class="fas fa-caret-up"></i> 1.2%</span>
                 </div>
             </div>
@@ -348,13 +381,12 @@
                     <i class="far fa-gem" style="color: #b9f2ff;"></i> Diamond
                 </div>
                 <div class="rate-value">
-                    ₦7,500,000 <span style="font-size: 0.8rem; color: #666; font-family: var(--font-rubik);">/ct</span>
+                    ₦150,000 <span style="font-size: 0.8rem; color: #666; font-family: var(--font-rubik);">/ct</span>
                     <span class="rate-change text-red"><i class="fas fa-caret-down"></i> 0.5%</span>
                 </div>
             </div>
         </section>
 
-        <!-- CSS Candlestick Chart -->
         <section class="card">
             <div class="card-header">
                 <i class="fas fa-poll text-gold"></i>
@@ -362,7 +394,6 @@
             </div>
             
             <div class="chart-container">
-                <!-- Background Grid Lines -->
                 <div class="chart-grid">
                     <div class="grid-line"></div>
                     <div class="grid-line"></div>
@@ -371,7 +402,6 @@
                     <div class="grid-line"></div>
                 </div>
 
-                <!-- Candles (Green=Bullish, Red=Bearish) -->
                 <div class="candle red c1"></div>
                 <div class="candle green c2"></div>
                 <div class="candle red c3"></div>
@@ -389,7 +419,6 @@
             </div>
         </section>
 
-        <!-- Calculator Section -->
         <section class="card">
             <div class="card-header">
                 <i class="fas fa-calculator text-gold"></i>
@@ -398,7 +427,6 @@
 
             <form id="calcForm" onsubmit="calculatePrice(event)">
                 
-                <!-- Action -->
                 <div class="form-group">
                     <label class="form-label">I want to</label>
                     <div class="select-wrapper">
@@ -409,7 +437,6 @@
                     </div>
                 </div>
 
-                <!-- Item Type -->
                 <div class="form-group">
                     <label class="form-label">Asset Type</label>
                     <div class="select-wrapper">
@@ -420,7 +447,6 @@
                     </div>
                 </div>
 
-                <!-- Quantity -->
                 <div class="form-group">
                     <label class="form-label">Quantity</label>
                     <input type="number" class="form-input" id="quantity" placeholder="e.g. 5.5" step="0.01" min="0" required>
@@ -429,7 +455,6 @@
                 <button type="submit" class="calc-btn">Calculate Estimated Price</button>
             </form>
 
-            <!-- Result Box -->
             <div id="resultBox" class="result-box">
                 <div class="result-label">Estimated Total Value</div>
                 <div class="result-price" id="priceDisplay">₦0.00</div>
@@ -437,7 +462,45 @@
                     <strong>IMPORTANT:</strong> This calculated price is an estimate based on mock rates. Actual market prices are highly dynamic, subject to real-time fluctuation, and may differ significantly at the time of transaction.
                 </div>
             </div>
+        </section>
 
+        <section class="card">
+            <div class="card-header">
+                <i class="fas fa-lightbulb text-gold"></i>
+                <span class="card-title">Why Invest in Gold?</span>
+            </div>
+            
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Inflation Hedge</h3>
+                        <p>Gold has historically maintained its value, serving as a powerful shield against currency fluctuation and inflation.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Tangible Security</h3>
+                        <p>Unlike digital assets, gold from YRN is a tangible asset you can hold, ensuring physically secured wealth.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h3>High Liquidity</h3>
+                        <p>Gold is universally recognized currency. Convert your YRN jewelry back to cash instantly, anywhere in the world.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <div class="footer-note">
@@ -447,18 +510,27 @@
     </main>
 
     <script>
-        // --- CONFIGURATION (MOCK RATES IN NAIRA) ---
+        // --- CONFIGURATION (UPDATED RATES) ---
+        // 'buy' = Customer wants to BUY (We sell at this price)
+        // 'sell' = Customer wants to SELL (We buy at this price)
+        
         const RATES = {
-            gold: 115000,    // Per Gram in NGN
-            diamond: 7500000 // Per Carat in NGN
+            gold: {
+                buy: 140000,   // Selling price (Store sells to customer)
+                sell: 130000   // Buying price (Store buys from customer)
+            },
+            diamond: {
+                buy: 150000,   // Selling price 
+                sell: 190000   // Buying price
+            }
         };
 
         function calculatePrice(e) {
             e.preventDefault();
 
             // Get Input Values
-            const action = document.getElementById('action').value; 
-            const asset = document.getElementById('asset').value;
+            const action = document.getElementById('action').value; // 'buy' or 'sell'
+            const asset = document.getElementById('asset').value;   // 'gold' or 'diamond'
             const quantity = parseFloat(document.getElementById('quantity').value);
 
             // Validation
@@ -467,8 +539,8 @@
                 return;
             }
 
-            // Calculation
-            const rate = RATES[asset];
+            // Calculation (Using specific Buy vs Sell rates)
+            const rate = RATES[asset][action]; 
             const total = quantity * rate;
 
             // Formatting to Naira (NGN)
