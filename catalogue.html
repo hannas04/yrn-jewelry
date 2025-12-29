@@ -53,7 +53,6 @@
         ul { list-style: none; padding: 0; margin: 0; }
         button { border: none; outline: none; background: none; font-family: inherit; }
         
-        /* Utility */
         .container { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
         .flex { display: flex; }
         .items-center { align-items: center; }
@@ -85,16 +84,9 @@
         .cat-title { font-family: var(--font-prata); font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--color-gold); }
         .cat-subtitle { color: var(--color-text-gray); font-size: 0.9rem; letter-spacing: 0.05em; max-width: 600px; margin: 0 auto; }
 
-        /* --- NEW SEARCH BAR STYLE --- */
-        .search-container {
-            padding: 1rem 0;
-            background: var(--color-dark);
-        }
-        .search-box {
-            position: relative;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+        /* --- SEARCH BAR --- */
+        .search-container { padding: 1rem 0; background: var(--color-dark); }
+        .search-box { position: relative; max-width: 500px; margin: 0 auto; }
         .search-box input {
             width: 100%;
             padding: 0.8rem 1rem 0.8rem 2.8rem;
@@ -107,14 +99,7 @@
             transition: var(--transition-smooth);
         }
         .search-box input:focus { border-color: var(--color-gold); }
-        .search-box i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--color-gold);
-            opacity: 0.7;
-        }
+        .search-box i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--color-gold); opacity: 0.7; }
 
         /* --- CATEGORY NAVIGATION --- */
         .category-nav-wrapper {
@@ -158,7 +143,7 @@
             font-weight: 600;
         }
 
-        /* --- MAIN LAYOUT --- */
+        /* --- LAYOUT & SIDEBAR --- */
         .catalogue-layout {
             display: grid;
             grid-template-columns: 250px 1fr;
@@ -171,7 +156,6 @@
             .catalogue-layout { grid-template-columns: 1fr; }
         }
 
-        /* --- FILTER SIDEBAR --- */
         .sidebar {
             background: var(--color-mid-dark);
             padding: 1.5rem;
@@ -237,15 +221,7 @@
             gap: 2rem;
         }
 
-        @media (max-width: 600px) {
-            .product-grid {
-                grid-template-columns: 1fr 1fr; 
-                gap: 10px; 
-            }
-            .container { padding: 0 1rem; }
-        }
-
-        /* --- PRODUCT CARD --- */
+        /* --- PRODUCT CARD STYLES --- */
         .prod-card {
             background: var(--color-card-bg);
             border-radius: 8px;
@@ -259,12 +235,7 @@
         }
 
         @keyframes fadeIn { to { opacity: 1; } }
-
-        .prod-card:hover { 
-            transform: translateY(-5px); 
-            border-color: var(--color-gold); 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3); 
-        }
+        .prod-card:hover { transform: translateY(-5px); border-color: var(--color-gold); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
 
         .prod-img-wrapper {
             position: relative;
@@ -273,16 +244,38 @@
             background-color: #000;
         }
 
-        .prod-img {
+        .slider-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+        .slider-container::-webkit-scrollbar { display: none; }
+        
+        .slider-img {
+            flex: 0 0 100%;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease, opacity 0.3s ease;
-            opacity: 0; 
+            scroll-snap-align: start;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        .prod-img.loaded { opacity: 1; }
 
-        .prod-card:hover .prod-img { transform: scale(1.1); }
+        .slider-hint {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.6rem;
+            color: var(--color-gold);
+            pointer-events: none;
+            z-index: 5;
+        }
 
         .badge {
             position: absolute;
@@ -297,17 +290,7 @@
             z-index: 2;
         }
 
-        .prod-info { 
-            padding: 1.2rem; 
-            flex-grow: 1; 
-            display: flex; 
-            flex-direction: column; 
-        }
-
-        @media (max-width: 600px) {
-            .prod-info { padding: 0.8rem; }
-        }
-
+        .prod-info { padding: 1.2rem; flex-grow: 1; display: flex; flex-direction: column; }
         .prod-cat { font-size: 0.7rem; color: var(--color-text-gray); text-transform: uppercase; margin-bottom: 0.3rem; }
         .prod-title { 
             font-family: var(--font-prata); 
@@ -315,9 +298,6 @@
             margin-bottom: 0.8rem; 
             line-height: 1.3;
             color: var(--color-white);
-            white-space: nowrap; 
-            overflow: hidden;
-            text-overflow: ellipsis; 
         }
 
         .prod-specs {
@@ -332,11 +312,7 @@
         .spec-label { font-size: 0.6rem; color: var(--color-text-gray); text-transform: uppercase; }
         .spec-val { font-size: 0.8rem; font-weight: 500; color: var(--color-white); }
 
-        .prod-footer {
-            margin-top: auto;
-            text-align: center;
-        }
-
+        .prod-footer { margin-top: auto; text-align: center; }
         .whatsapp-btn {
             background-color: var(--color-whatsapp);
             color: #fff;
@@ -352,8 +328,36 @@
             transition: background-color 0.2s ease;
             box-sizing: border-box;
         }
-        
         .whatsapp-btn:hover { background-color: #128C7E; }
+
+        /* --- MOBILE OPTIMIZATIONS (2 GRID) --- */
+        @media (max-width: 600px) {
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .container { padding: 0 0.8rem; }
+            
+            .prod-info { padding: 0.6rem; }
+            
+            .prod-cat { font-size: 0.55rem; margin-bottom: 2px; }
+            
+            .prod-title { 
+                font-size: 0.75rem; 
+                margin-bottom: 0.5rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                white-space: normal;
+            }
+
+            .prod-specs { padding: 0.3rem 0.4rem; margin-bottom: 0.6rem; gap: 4px; }
+            .spec-label { font-size: 0.5rem; }
+            .spec-val { font-size: 0.65rem; }
+
+            .whatsapp-btn { padding: 0.5rem 0.6rem; font-size: 0.7rem; gap: 4px; }
+            .whatsapp-btn i { font-size: 0.8rem; }
+            
+            .slider-hint { bottom: 5px; right: 5px; font-size: 0.5rem; padding: 2px 5px; }
+        }
 
         footer {
             background: #050505;
@@ -381,7 +385,7 @@
     <section class="cat-hero">
         <div class="container">
             <h2 class="cat-title">The Exclusive Collection</h2>
-            <p class="cat-subtitle">Explore 50 masterfully crafted pieces available for immediate inquiry.</p>
+            <p class="cat-subtitle">Explore masterfully crafted pieces available for immediate inquiry.</p>
         </div>
     </section>
 
@@ -389,7 +393,7 @@
         <div class="container">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search by name (e.g. Cuban Link)...">
+                <input type="text" id="searchInput" placeholder="Search by name (e.g. Cuban Link)..."> 
             </div>
         </div>
     </div>
@@ -426,8 +430,7 @@
                     <h4 class="filter-title">Purity</h4>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="18k"> 18k Gold</label>
                     <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="22k"> 22k Gold</label>
-                    <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="24k"> 24k Pure</label>
-                    <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="platinum"> Platinum</label>
+                    <label class="filter-option"><input type="checkbox" class="filter-checkbox" value="diamond"> Diamond Set</label>
                 </div>
 
                 <div class="filter-group" data-group="weight">
@@ -449,187 +452,203 @@
     </footer>
 
     <script>
-        // --- MANUAL COLLECTION DATA (50 SLOTS) ---
-        // Edit names, grams, and quality. 
-        // Set imgUrl: "" to trigger SOLD OUT view.
-        // --- MANUAL COLLECTION DATA (UPDATED WITH YOUR FILENAMES) ---
-       // --- DATA COLLECTION (50 SLOTS) ---
+
+
+        // --- DATA COLLECTION ---
         const ALL_PRODUCTS = [
-            { id: 1, name: "benz diamond ring", category: "ring", category: "diamond", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "13.7g", weightCategory: "medium", quality: "diamond", imgUrl: "ice-ring 1.jpg" },
-            { id: 2, name: "diamond Ring ", category: "ring", category: "diamond", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "12.9g", weightCategory: "medium", quality: "ice", imgUrl: "ice-ring 2.jpg" },
-            { id: 3, name: "diamond Ring", category: "ring", category: "diamond", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "15.8g", weightCategory: "medium", quality: "18k Gold", imgUrl: "ice-ring 3.jpg" },
-            { id: 4, name: "diamond Ring", category: "ring", category: "diamond", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "13.9g", weightCategory: "medium", quality: "ice", imgUrl: "ice-ring 4.jpg" },
-            // wathes...
-           
-           
-           
-            { id: 21, name: "Hublot watch", category: "watch", category: "diamond", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "undisclosed", weightCategory: "medium", quality: "", imgUrl: "watch-hublot-4.jpg" },
-            { id: 21, name: "Hublot watch", category: "watch", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "undisclosed", weightCategory: "medium", quality: "", imgUrl: "watch-hublot.jpg" },
-            { id: 21, name: "Hublot watch", category: "watch", category: "diamond", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "undisclosed", weightCategory: "medium", quality: "", imgUrl: "watch-hublot.jpg" },
-            { id: 21, name: "Rolex watch", category: "watch", category: "diamond", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "undisclosed", weightCategory: "medium", quality: "", imgUrl: "watch-rolex.jpg" },
+    /* --- WATCHES (Stand-alone Objects) --- */
+    { id: 1, name: "Franck Muller Watch v2", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/franck muller-watch-2.jpg"] },
+    { id: 2, name: "Franck Muller Watch v3", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/franck muller-watch-3.jpg"] },
+    { id: 3, name: "Franck Muller Watch v4", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/franck muller-watch-4.jpg"] },
+    { id: 4, name: "Franck Muller Watch v5", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/franck muller-watch-5.jpg"] },
+    { id: 5, name: "Franck Muller Watch v6", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/franck muller-watch-6.jpg"] },
+    { id: 6, name: "Franck Muller Vanguard", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/franck muller-watch.jpg"] },
+    { id: 7, name: "Hublot Watch v2", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/hublot-watch-2.jpg"] },
+    { id: 8, name: "Hublot Watch v3", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/hublot-watch-3.jpg"] },
+    { id: 9, name: "Hublot Watch v4", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/hublot-watch-4.jpg"] },
+    { id: 10, name: "Hublot Watch v5", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/hublot-watch-5.jpg"] },
+    { id: 11, name: "Hublot Watch v6", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/hublot-watch-6.jpg"] },
+    { id: 12, name: "Hublot Classic", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/hublot-watch.jpg"] },
+    { id: 13, name: "Rolex Gold Datejust", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/rolex-watch.jpg"] },
 
-        
+    /* --- DIAMOND EARRINGS (Stand-alone Objects) --- */
+    { id: 14, name: "Diamond Earring", category: ["earring", "diamond"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Undisclosed", quality: "VVS", sold: false, imgUrl: ["../earring/diamond earring-undisclosed gram-earring-diamond.jpg"] },
+    { id: 15, name: "Diamond Earring Set v1", category: ["earring", "diamond"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Undisclosed", quality: "VVS", sold: false, imgUrl: ["../earring/diamond earring-undisclosed gram-earring-diamond1.jpg"] },
+    { id: 16, name: "Diamond Earring Set v2", category: ["earring", "diamond"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Undisclosed", quality: "VVS", sold: false, imgUrl: ["../earring/diamond earring-undisclosed gram-earring-diamond2.jpg"] },
+    { id: 17, name: "Diamond Cluster Earring", category: ["earring", "diamond"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Undisclosed", quality: "VVS", sold: false, imgUrl: ["../earring/dimond earrings-undisclosed gram-diamond-earring.jpg"] },
+
+    /* --- GOLD EARRINGS (With Gram Proof Slides) --- */
+    { id: 18, name: "Gold Stud Earring", category: ["earring"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "1.4g", quality: "18k Gold", sold: false, imgUrl: ["../earring/gold earring-1.4g-earring-18k.jpg", "../earring/gold earring-1.4g-earring-18k-gram.jpg"] },
+    { id: 19, name: "Gold Stud Earring", category: ["earring"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "1.6g", quality: "18k Gold", sold: false, imgUrl: ["../earring/gold earring-1.6g-earring-18k.jpg", "../earring/gold earring-1.6g-earring-18k-gram.jpg"] },
+    { id: 20, name: "Versace Gold Earring", category: ["earring"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "1.8g", quality: "18k Gold", sold: false, imgUrl: ["../earring/versace earringt-1.8g-earring-18k.jpg", "../earring/versace earringt-1.8g-earring-18k-gram.jpg"] },
+    { id: 21, name: "Versace Special Earring", category: ["earring"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "1.6g", quality: "18k Gold", sold: false, imgUrl: ["../earring/versace gold earring-1.6g-earring-18k.jpg", "../earring/versace gold earring-1.6g-earring-18k-gram.jpg"] },
+    { id: 22, name: "Versace Special Earring", category: ["earring"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "1.8g", quality: "18k Gold", sold: false, imgUrl: ["../earring/versace gold earring-1.8g-earring-18k.jpg", "../earring/versace gold earring-1.8g-earring-18k-gram.jpg"] },
+    { id: 23, name: "Versace Silver Earring", category: ["earring"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "2.6g", quality: "18k Silver", sold: false, imgUrl: ["../earring/versace silver earring-2.6g-earring-18k.jpg", "../earring/versace silver earring-2.6g-earring-18k-gram.jpg"] },
+
+    /* --- BANGLES (With Gram Proof Slides) --- */
+    { id: 24, name: "Bead Bangle", category: ["bangle"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "4.1g", quality: "18k Gold", sold: false, imgUrl: ["../bangles/bead bangle-4.1g-bangle-18k.jpg", "../bangles/bead bangle-4.1g-bangle-18k-gram.jpg"] },
+    { id: 25, name: "Bead Bangle", category: ["bangle"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "5.1g", quality: "18k Gold", sold: false, imgUrl: ["../bangles/bead bangle-5.1g-bangle-18k.jpg", "../bangles/bead bangle-5.1g-bangle-18k-gram.jpg"] },
+    { id: 26, name: "Bead Bangle", category: ["bangle"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "5.5g", quality: "18k Gold", sold: false, imgUrl: ["../bangles/bead bangle-5.5g-bangle-18k.jpg", "../bangles/bead bangle-5.5g-bangle-18k-gram.jpg"] },
+    { id: 27, name: "Bead Bangle", category: ["bangle"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "5.9g", quality: "18k Gold", sold: false, imgUrl: ["../bangles/bead bangle-5.9g-bangle-18k.jpg", "../bangles/bead bangle-5.9g-bangle-18k-gram.jpg"] },
+    { id: 28, name: "Bead Bangle", category: ["bangle"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "6.1g", quality: "18k Gold", sold: false, imgUrl: ["../bangles/bead bangle-6.1g-bangle-18k.jpg", "../bangles/bead bangle-6.1g-bangle-18k-gram.jpg"] },
+    { id: 29, name: "Gold Wrist Bangle", category: ["bangle"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "10.0g", quality: "18k Gold", sold: false, imgUrl: ["../bangles/wrist bangle-10.0g-bangle-18k.jpg", "../bangles/wrist bangle-10.0g-bangle-22k-gram.jpg"] },
+    { id: 30, name: "Heavy Wrist Bangle", category: ["bangle"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "21.7g", quality: "22k Gold", sold: false, imgUrl: ["../bangles/wrist bangle-21.7g-bangle-22k.jpg", "../bangles/wrist bangle-21.7g-bangle-22k-gram.jpg"] },
+    { id: 31, name: "Heavy Wrist Bangle", category: ["bangle"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "22.0g", quality: "22k Gold", sold: false, imgUrl: ["../bangles/wrist bangle-22.0g-bangle-22k.jpg", "../bangles/wrist bangle-22.0g-bangle-22k-gram.jpg"] },
+    { id: 32, name: "Heavy Wrist Bangle", category: ["bangle"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "30.7g", quality: "22k Gold", sold: false, imgUrl: ["../bangles/wrist bangle-30.7g-bangle-22k.jpg", "../bangles/wrist bangle-30.7g-bangle-22k-gram.jpg"] },
+    { id: 33, name: "Heavy Wrist Bangle", category: ["bangle"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "31.2g", quality: "22k Gold", sold: false, imgUrl: ["../bangles/wrist bangle-31.2g-bangle-22k.jpg", "../bangles/wrist bangle-31.2g-bangle-22k-gram.jpg"] },
+    { id: 34, name: "Heavy Wrist Bangle", category: ["bangle"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "32.2g", quality: "22k Gold", sold: false, imgUrl: ["../bangles/wrist bangle-32.2g-bangle-22k.jpg", "../bangles/wrist bangle-32.2g-bangle-22k-gram.jpg"] },
+
+    /* --- RINGS --- */
+    { id: 35, name: "360 Ring", category: ["ring", "diamond"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "15.8g", quality: "Diamond", sold: false, imgUrl: ["../rings/360 ring-15.8g-ring-diamond.jpg", "../rings/360 ring-15.8g-ring-diamond-gram.jpg"] },
+    { id: 36, name: "Benz Ring", category: ["ring", "diamond"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "12.9g", quality: "Diamond", sold: false, imgUrl: ["../rings/benz ring-12.9g-ring-diamond.jpg", "../rings/benz ring-12.9g-ring-diamond-gram.jpg"] },
+    { id: 37, name: "Cross Diamond Ring", category: ["ring", "diamond"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "10.9g", quality: "Diamond", sold: false, imgUrl: ["../rings/cross ring-10.9g-ring-diamond.jpg"] },
+    { id: 38, name: "Cross Diamond Ring XL", category: ["ring", "diamond"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "15.9g", quality: "Diamond", sold: false, imgUrl: ["../rings/cross ring-15.9g-ring-diamond.jpg", "../rings/cross ring-15.9g-ring-diamond-gram.jpg"] },
+    { id: 39, name: "Luxury Diamond Ring", category: ["ring", "diamond"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "13.9g", quality: "Diamond", sold: false, imgUrl: ["../rings/diamond ring-13.9g-ring-diamond.jpg", "../rings/diamond ring-13.9g-ring-diamond-gram.jpg"] },
+    { id: 40, name: "Dollar Diamond Ring", category: ["ring", "diamond"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "18.9g", quality: "Diamond", sold: false, imgUrl: ["../rings/dollar ring-18.9g-ring-diamond.jpg"] },
+    { id: 41, name: "Premium Wedding Ring", category: ["ring", "diamond"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Undisclosed", quality: "Diamond", sold: false, imgUrl: ["../rings/premium wedding wring-gram undisclosed-diamond.jpg"] },
+    { id: 42, name: "Wedding Ring", category: ["ring", "diamond"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "3.1g", quality: "Diamond", sold: false, imgUrl: ["../rings/wedding ring-3.1g-ring-diamond.jpg", "../rings/wedding ring-3.1g-ring-diamond-gram.jpg"] },
+    { id: 43, name: "Wedding Ring", category: ["ring", "diamond"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "3.5g", quality: "Diamond", sold: false, imgUrl: ["../rings/wedding ring-3.5g-ring-diamond.jpg", "../rings/wedding ring-3.5g-ring-diamond-gram.jpg"] },
+    { id: 44, name: "Wedding Ring", category: ["ring", "diamond"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "4.5g", quality: "Diamond", sold: false, imgUrl: ["../rings/wedding ring-4.5g-ring-diamond.jpg", "../rings/wedding ring-4.5g-ring-diamond-gram.jpg"] },
+
+    /* --- NECKLACES (Chains & Pendants) --- */
+    { id: 45, name: "Bead Chain Diamond", category: ["necklace", "diamond"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "11.1g", quality: "18k", sold: false, imgUrl: ["../necklace/bead chain-11.1g-necklace-diamond-18k.jpg", "../necklace/bead chain-11.1g-necklace-diamond-18k-gram.jpg"] },
+    { id: 46, name: "Bead Gold Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "13.6g", quality: "18k", sold: false, imgUrl: ["../necklace/bead chain-13.6g-necklace-18k.jpg", "../necklace/bead chain-13.6g-necklace-18k-gram.jpg"] },
+    { id: 47, name: "Bead Chain Diamond", category: ["necklace", "diamond"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "14.8g", quality: "18k", sold: false, imgUrl: ["../necklace/bead chain-14.8g-necklace-diamond-18k.jpg", "../necklace/bead chain-14.8g-necklace-diamond-18k-gram.jpg"] },
+    { id: 48, name: "Bead Chain Diamond", category: ["necklace", "diamond"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "17.0g", quality: "18k", sold: false, imgUrl: ["../necklace/bead chain-17.0g-necklace-diamond-18k.jpg", "../necklace/bead chain-17.0g-necklace-diamond-18k-gram.jpg"] },
+    { id: 49, name: "Fashion Gold Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "20.2g", quality: "22k", sold: false, imgUrl: ["../necklace/fashion chain-20.2g-necklace-22k.jpg", "../necklace/fashion chain-20.2g-necklace-22k-gram.jpg"] },
+    { id: 50, name: "Fashion Gold Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "23.8g", quality: "22k", sold: false, imgUrl: ["../necklace/fashion chain-23.8g-necklace-22k.jpg", "../necklace/fashion chain-23.8g-necklace-22k-gram.jpg"] },
+    { id: 51, name: "Fashion Gold Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "29.8g", quality: "22k", sold: false, imgUrl: ["../necklace/fashion chain-29.8g-necklace-22k.jpg", "../necklace/fashion chain-29.8g-necklace-22k-gram.jpg"] },
+    { id: 52, name: "Fashion Gold Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "39.3g", quality: "22k", sold: false, imgUrl: ["../necklace/fashion chain-39.3g-necklace-22k.jpg", "../necklace/fashion chain-39.3g-necklace-22k-gram.jpg"] },
+    { id: 53, name: "Fashion Gold Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "40.9g", quality: "22k", sold: false, imgUrl: ["../necklace/fashion chain-40.9g-necklace-22k.jpg", "../necklace/fashion chain-40.9g-necklace-22k-gram.jpg"] },
+    { id: 54, name: "Heavy Fashion Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "68.8g", quality: "22k", sold: false, imgUrl: ["../necklace/fashion chain-68.8g-necklace-22k.jpg", "../necklace/fashion chain-68.8g-necklace-22k-gram.jpg"] },
+    { id: 55, name: "Heavy Fashion Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "70.3g", quality: "22k", sold: false, imgUrl: ["../necklace/fashion chain-70.3g-necklace-22k.jpg", "../necklace/fashion chain-70.3g-necklace-22k-gram.jpg"] },
+    { id: 56, name: "Gold Pendant", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "4.7g", quality: "18k", sold: false, imgUrl: ["../necklace/pendant-4.7g-necklace-18k.jpg", "../necklace/pendant-4.7g-necklace-18k-gram.jpg"] },
+    { id: 57, name: "Gold Pendant", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "5.3g", quality: "18k", sold: false, imgUrl: ["../necklace/pendant-5.3g-necklace-18k.jpg", "../necklace/pendant-5.3g-necklace-18k-gram.jpg"] },
+    { id: 58, name: "Gold Pendant", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "5.8g", quality: "18k", sold: false, imgUrl: ["../necklace/pendant-5.8g-necklace-18k.jpg", "../necklace/pendant-5.8g-necklace-18k-gram.jpg"] },
+    { id: 59, name: "Gold Pendant", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "7.7g", quality: "18k", sold: false, imgUrl: ["../necklace/pendant-7.7g-necklace-18k.jpg", "../necklace/pendant-7.7g-necklace-18k-gram.jpg"] },
+    { id: 60, name: "Heavy Gold Pendant", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "29.3g", quality: "18k", sold: false, imgUrl: ["../necklace/pendant-29.3g-necklace-18k.jpg", "../necklace/pendant-29.3g-necklace-18k-gram.jpg"] },
+    { id: 61, name: "Heavy Gold Pendant", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "43.9g", quality: "18k", sold: false, imgUrl: ["../necklace/pendant-43.9g-necklace-18k.jpg", "../necklace/pendant-43.9g-necklace-18k-gram.jpg"] },
+    { id: 62, name: "Heavy Gold Pendant", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "47.5g", quality: "18k", sold: false, imgUrl: ["../necklace/pendant-47.5g-necklace-18k.jpg", "../necklace/pendant-47.5g-necklace-18k-gram.jpg"] },
+    { id: 63, name: "Heavy Gold Pendant", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "51.9g", quality: "18k", sold: false, imgUrl: ["../necklace/pendant-51.9g-necklace-18k.jpg", "../necklace/pendant-51.9g-necklace-18k-gram.jpg"] },
+    { id: 64, name: "Heavy Gold Pendant", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "54.7g", quality: "18k", sold: false, imgUrl: ["../necklace/pendant-54.7g-necklace-18k.jpg", "../necklace/pendant-54.7g-necklace-18k-gram.jpg"] },
+    { id: 65, name: "Ultra Heavy Pendant", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "76.8g", quality: "18k", sold: false, imgUrl: ["../necklace/pendant-76.8g-necklace-18k.jpg", "../necklace/pendant-76.8g-necklace-18k-gram.jpg"] },
+    { id: 66, name: "Tiny Gold Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "3.2g", quality: "18k", sold: false, imgUrl: ["../necklace/tiny chain-3.2g-necklace-18k.jpg", "../necklace/tiny chain-3.2g-necklace-18k-gram.jpg"] },
+    { id: 67, name: "Tiny Gold Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "4.3g", quality: "18k", sold: false, imgUrl: ["../necklace/tiny chain-4.3g-necklace-18k.jpg", "../necklace/tiny chain-4.3g-necklace-18k-gram.jpg"] },
+    { id: 68, name: "Tiny Gold Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "4.4g", quality: "18k", sold: false, imgUrl: ["../necklace/tiny chain-4.4g-necklace-18k.jpg", "../necklace/tiny chain-4.4g-necklace-18k-gram.jpg"] },
+    { id: 69, name: "Tiny Gold Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "4.5g", quality: "18k", sold: false, imgUrl: ["../necklace/tiny chain-4.5g-necklace-18k.jpg", "../necklace/tiny chain-4.5g-necklace-18k-gram.jpg"] },
+    { id: 70, name: "Twist Gold Chain v2", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "9.8g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-9.8g-2-necklace-18k.jpg", "../necklace/twist chain-9.8g-2-necklace-18k-gram.jpg"] },
+    { id: 71, name: "Twist Gold Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "9.8g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-9.8g-necklace-18k.jpg", "../necklace/twist chain-9.8g-necklace-18k-gram.jpg"] },
+    { id: 72, name: "Twist Gold Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "9.9g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-9.9g-necklace-18k.jpg", "../necklace/twist chain-9.9g-necklace-18k-gram.jpg"] },
+    { id: 73, name: "Twist Gold Chain v2", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "11.2g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-11.2g-2-necklace-18k.jpg", "../necklace/twist chain-11.2g-2-necklace-18k-gram.jpg"] },
+    { id: 74, name: "Twist Gold Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "11.2g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-11.2g-necklace-18k.jpg", "../necklace/twist chain-11.2g-necklace-18k-gram.jpg"] },
+    { id: 75, name: "Twist Gold Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "11.3g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-11.3-necklace-18k.jpg", "../necklace/twist chain-11.3g-necklace-18k-gram.jpg"] },
+    { id: 76, name: "Twist Gold Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "13.6g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-13.6g-necklace-18k.jpg", "../necklace/twist chain-13.6g-necklace-18k-gram.jpg"] },
+    { id: 77, name: "Twist Gold Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "15.4g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-15.4g-necklace-18k.jpg", "../necklace/twist chain-15.4g-necklace-18k-gram.jpg"] },
+    { id: 78, name: "Heavy Twist Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "22.2g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-22.2g-necklace-18k.jpg", "../necklace/twist chain-22.2g-necklace-18k-gram.jpg"] },
+    { id: 79, name: "Heavy Twist Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "22.7g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-22.7g-necklace-18k.jpg", "../necklace/twist chain-22.7g-necklace-18k-gram.jpg"] },
+    { id: 80, name: "Heavy Twist Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "26.0g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-26.0g-necklace-18k.jpg", "../necklace/twist chain-26.0g-necklace-18k-gram.jpg"] },
+    { id: 81, name: "Heavy Twist Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "30.3g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-30.3g-necklace-18k.jpg", "../necklace/twist chain-30.3g-necklace-18k-gram.jpg"] }
+];
+
+      
+              // Function to shuffle the array so categories are scattered
+const scatteredProducts = ALL_PRODUCTS.sort(() => Math.random() - 0.5);
+
+// Initial load using the scattered list
+window.addEventListener('load', () => renderProducts(scatteredProducts));
 
 
-
-            { id: 5, name: "diamond Ring", category: "ring", category: "diamond", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "19.3g", weightCategory: "medium", quality: "ice", imgUrl: "ice-ring 5.jpg" },
-            { id: 6, name: "Pendant", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "47.5g", weightCategory: "medium", quality: "22k Gold", imgUrl: "pendant-47.5.jpg" },
-            { id: 7, name: "Pendant", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "96.8g", weightCategory: "heavy", quality: "22k Gold", imgUrl: "pendant-96.8.jpg" },
-             { id: 21, name: "Cartier watch", category: "watch", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "undisclosed", weightCategory: "medium", quality: "", imgUrl: "cartier watch.jpg" },
-            { id: 21, name: "franck muller", category: "watch", category: "diamond", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "undisclosed", weightCategory: "medium", quality: "", imgUrl: "watch-franck-muller-1.jpg" },
-            { id: 8, name: "Tiny chain", category: "necklace", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "3.2g", weightCategory: "light", quality: "18k Gold", imgUrl: "tiny-3.2.jpg" },
-             { id: 21, name: "Franck muller", category: "watch", category: "diamond", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "undisclosed", weightCategory: "medium", quality: "", imgUrl: "watch-franck-muller-2.jpg" },
-            { id: 21, name: "Franck muller", category: "watch", category: "diamond", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "undisclosed", weightCategory: "medium", quality: "", imgUrl: "watch-franck-muller.jpg" },
-            { id: 9, name: "Tiny chain", category: "necklace", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "4.3g", weightCategory: "light", quality: "18k Gold", imgUrl: "tiny-4.3.jpg" },
-            { id: 10, name: "Tiny chain", category: "necklace", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "4.5g", weightCategory: "light", quality: "18k Gold", imgUrl: "tiny-4.5.jpg" },
-            { id: 11, name: "Tiny 4.4", category: "necklace",  status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "4.4g", weightCategory: "light", quality: "18k Gold", imgUrl: "tiy-4.4.jpg" },
-            { id: 12, name: "Twist chain", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "22.2g", weightCategory: "medium", quality: "18k Gold", imgUrl: "twist 22.2.jpg" },
-            // { id: 13, name: "Twist chain", category: "necklace", status: { text: 'Pre-Owned', val: 'old', color: '#ff8a65', bg: 'rgba(255,87,34,0.1)' }, grams: "2.2g", weightCategory: "light", quality: "18k Gold", imgUrl: "twist-2.2.jpg" },
-            { id: 14, name: "Twist chain", category: "necklace", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "9.8g", weightCategory: "light", quality: "18k Gold", imgUrl: "twist-9.8.jpg" },
-            { id: 4, name: "gold earring", category: "earring", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "2.9g", weightCategory: "medium", quality: "ice", imgUrl: "earring-2.9.jpg" },
-             { id: 4, name: "gold earring", category: "earring", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "2.9g", weightCategory: "medium", quality: "ice", imgUrl: "earring.jpg" },
-            { id: 15, name: "Twist chain", category: "necklace", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "9.9g", weightCategory: "light", quality: "18k Gold", imgUrl: "twist-9.9.jpg" },
-            
-            { id: 16, name: "Twist chain", category: "necklace", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "11.2g", weightCategory: "medium", quality: "18k Gold", imgUrl: "twist-11.2.jpg" },
-            { id: 17, name: "Twist chain", category: "necklace", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "11.3g", weightCategory: "medium", quality: "18k Gold", imgUrl: "twist-11.3.jpg" },
-            { id: 18, name: "Twist chain", category: "necklace", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "13.6g", weightCategory: "medium", quality: "18k Gold", imgUrl: "twist-13.6.jpg" },
-            { id: 19, name: "Twist chain", category: "necklace", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "15.4g", weightCategory: "medium", quality: "18k Gold", imgUrl: "twist-15.4.jpg" },
-            { id: 20, name: "Twist chain", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "22.7g", weightCategory: "medium", quality: "18k Gold", imgUrl: "twist-22.7.jpg" },
-            { id: 21, name: "Cartier watch", category: "watch", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "undisclosed", weightCategory: "medium", quality: "", imgUrl: "cartier watch.jpg" },
-            { id: 22, name: "Twist chain", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "62.3g", weightCategory: "medium", quality: "18k Gold", imgUrl: "62.3.jpg" },
-            { id: 23, name: "Cuban", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "134.8g", weightCategory: "medium", quality: "18k Gold", imgUrl: "cuban 134.8.jpg" },
-            { id: 24, name: "Ring", category: "ring", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "2.3g", weightCategory: "medium", quality: "18k Gold", imgUrl: "ring 2.3.jpg" },
-            { id: 25, name: "Ring", category: "ring", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "2.4g", weightCategory: "medium", quality: "18k Gold", imgUrl: "ring 2.4.jpg" },
-            { id: 26, name: "Twist chain", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "31.3g", weightCategory: "medium", quality: "18k Gold", imgUrl: "twist 31.3.jpg" },
-             { id: 21, name: "Hublot watch", category: "watch",  category: "diamond",status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "undisclosed", weightCategory: "medium", quality: "", imgUrl: "watch-hublot-2.jpg"},
-            { id: 21, name: "Hublot watch", category: "watch", category: "diamond", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "undisclosed", weightCategory: "medium", quality: "", imgUrl: "watch-hublot-3.jpg" },
-            { id: 27, name: "Twist chain", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "53.5g", weightCategory: "medium", quality: "18k Gold", imgUrl: "twist 53.5.jpg" },
-            { id: 29, name: "Twist chain", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "70.0g", weightCategory: "medium", quality: "18k Gold", imgUrl: "twist chain 70.0.jpg" },
-             { id: 29, name: "Twist chain", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "70.0g", weightCategory: "medium", quality: "18k Gold", imgUrl: "twist chain 70.0.jpg" },
-             { id: 29, name: "Twist chain", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "70.0g", weightCategory: "medium", quality: "18k Gold", imgUrl: "../gold/cartier watch.jpg" },
-             { id: 29, name: "Twist chain", category: "necklace", status: { text: 'Rare Find', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "70.0g", weightCategory: "medium", quality: "18k Gold", imgUrl: "../gold/earring-2.9.jpg" }
-
-
-        ];
-
-        for(let i=21; i<=50; i++) {
-            ALL_PRODUCTS.push({ id: i, name: `Luxury Item #${i}`, category: "ring", status: { text: 'New Arrival', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' }, grams: "10g", weightCategory: "medium", quality: "18k", imgUrl: "" });
-        }
-
-        // --- RENDER & FILTER LOGIC ---
         const grid = document.getElementById('productGrid');
         const searchInput = document.getElementById('searchInput');
         let activeFilters = { category: 'all', status: [], quality: [], weight: [], search: '' };
         
+        function generateWhatsAppLink(product) {
+            const phoneNumber = "2348185727263";
+            const currentSiteUrl = window.location.origin; 
+            let imgPath = Array.isArray(product.imgUrl) ? product.imgUrl[0] : product.imgUrl;
+            let cleanImgPath = imgPath.replace('../', '');
+            const fullImageUrl = `${currentSiteUrl}/${cleanImgPath}`;
+
+            const message = `Hello YRN, I am interested in this piece:\n\n` +
+                            `📌 *Item:* ${product.name}\n` +
+                            `⚖️ *Weight:* ${product.grams}\n` +
+                            `💎 *Quality:* ${product.quality}\n\n` +
+                            `🖼️ *Image Link:* ${fullImageUrl}`;
+
+            return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        }
+
         function renderProducts(productsToRender) {
             grid.innerHTML = '';
-            
             if (productsToRender.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #666;">No pieces found matching your criteria.</div>';
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #666;">No pieces found.</div>';
                 return;
             }
 
-            const fragment = document.createDocumentFragment();
-
             productsToRender.forEach((p, idx) => {
-                const isSoldOut = !p.imgUrl || p.imgUrl.trim() === "";
+                const images = Array.isArray(p.imgUrl) ? p.imgUrl : [p.imgUrl];
+                const isSoldOut = !images[0] || images[0].trim() === "";
+                
                 const card = document.createElement('article');
                 card.className = 'prod-card';
                 card.style.animationDelay = `${idx * 0.05}s`;
 
-                const imgHTML = isSoldOut 
-                    ? `<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#111; color:var(--color-gold); font-weight:bold; flex-direction:column; gap:10px;">
-                        <i class="fas fa-lock" style="font-size:1.5rem; opacity:0.4;"></i>
-                        <span style="letter-spacing:2px; font-size:0.9rem;">SOLD OUT</span>
-                       </div>`
-                    : `<img data-src="${p.imgUrl}" alt="${p.name}" class="prod-img" loading="lazy">`;
+                let mediaHTML = isSoldOut 
+                    ? `<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#111;">SOLD OUT</div>`
+                    : `<div class="slider-container">${images.map(img => `<img data-src="${img}" class="slider-img">`).join('')}</div>
+                       ${images.length > 1 ? '<div class="slider-hint"><i class="fas fa-arrow-right"></i> Grams</div>' : ''}`;
 
-                const buttonHTML = isSoldOut
-                    ? `<button class="whatsapp-btn" style="background:#333; cursor:not-allowed; opacity:0.6;" disabled>Out of Stock</button>`
-                    : `<a href="https://wa.me/2348185727263?text=Hello%20YRN,%20I%20am%20interested%20in%20the%20${encodeURIComponent(p.name)}%20(${p.grams})%20from%20your%20catalogue." 
-                        target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Negotiate</a>`;
+                const whatsappLink = generateWhatsAppLink(p);
 
                 card.innerHTML = `
                     <div class="prod-img-wrapper">
-                        ${imgHTML}
-                        <span class="badge" style="background-color: ${p.status.bg}; color: ${p.status.color};">
-                            ${isSoldOut ? 'Unavailable' : p.status.text}
-                        </span>
+                        ${mediaHTML}
+                        <span class="badge" style="background-color: ${p.status.bg}; color: ${p.status.color};">${p.status.text}</span>
                     </div>
                     <div class="prod-info">
-                        <div class="prod-cat">${p.category}</div>
+                        <div class="prod-cat">${Array.isArray(p.category) ? p.category.join(' / ') : p.category}</div>
                         <h3 class="prod-title">${p.name}</h3>
                         <div class="prod-specs">
                             <div class="spec-item"><span class="spec-label">Weight</span><span class="spec-val">${p.grams}</span></div>
                             <div class="spec-item"><span class="spec-label">Purity</span><span class="spec-val">${p.quality}</span></div>
                         </div>
-                        <div class="prod-footer">${buttonHTML}</div>
+                        <div class="prod-footer">
+                            <a href="${whatsappLink}" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Negotiate</a>
+                        </div>
                     </div>`;
-                fragment.appendChild(card);
+                grid.appendChild(card);
             });
-            grid.appendChild(fragment);
             observeImages();
         }
 
         function observeImages() {
             const imageObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.target.tagName === 'IMG') {
+                    if (entry.isIntersecting) {
                         const img = entry.target;
                         img.src = img.getAttribute('data-src');
-                        img.onload = () => img.classList.add('loaded');
+                        img.onload = () => img.style.opacity = "1";
                         observer.unobserve(img);
                     }
                 });
-            }, { rootMargin: '50px' });
-            document.querySelectorAll('.prod-img').forEach(img => imageObserver.observe(img));
+            });
+            document.querySelectorAll('.slider-img').forEach(img => imageObserver.observe(img));
         }
 
         function applyFilters() {
             let filtered = ALL_PRODUCTS;
-
-            // Search Filter
-            if (activeFilters.search) {
-                filtered = filtered.filter(p => p.name.toLowerCase().includes(activeFilters.search.toLowerCase()));
-            }
-            // Category Filter
-            if (activeFilters.category !== 'all') {
-                filtered = filtered.filter(p => p.category === activeFilters.category);
-            }
-            // Sidebar Filters
-            if (activeFilters.status.length > 0) {
-                filtered = filtered.filter(p => activeFilters.status.includes(p.status.val));
-            }
-            if (activeFilters.quality.length > 0) {
-                filtered = filtered.filter(p => activeFilters.quality.some(q => p.quality.toLowerCase().includes(q)));
-            }
-            if (activeFilters.weight.length > 0) {
-                filtered = filtered.filter(p => activeFilters.weight.includes(p.weightCategory));
-            }
-
+            if (activeFilters.search) filtered = filtered.filter(p => p.name.toLowerCase().includes(activeFilters.search.toLowerCase()));
+            if (activeFilters.category !== 'all') filtered = filtered.filter(p => p.category.includes(activeFilters.category));
+            if (activeFilters.status.length > 0) filtered = filtered.filter(p => activeFilters.status.includes(p.status.val));
             renderProducts(filtered);
         }
 
-        // --- EVENT LISTENERS ---
-        searchInput.addEventListener('input', (e) => {
-            activeFilters.search = e.target.value;
-            applyFilters();
-        });
-
+        searchInput.addEventListener('input', (e) => { activeFilters.search = e.target.value; applyFilters(); });
         document.querySelectorAll('.cat-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 activeFilters.category = btn.dataset.filter;
-                applyFilters();
-            });
-        });
-
-        document.querySelectorAll('.filter-checkbox').forEach(cb => {
-            cb.addEventListener('change', (e) => {
-                const groupType = e.target.closest('.filter-group').dataset.group;
-                if (e.target.checked) activeFilters[groupType].push(e.target.value);
-                else activeFilters[groupType] = activeFilters[groupType].filter(item => item !== e.target.value);
                 applyFilters();
             });
         });
