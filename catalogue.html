@@ -589,27 +589,53 @@
         }
 
         function generateWhatsAppLink(product) {
-            const phoneNumber = "2348185727263";
-            const currentSiteUrl = window.location.origin; 
-            let imgPath = Array.isArray(product.imgUrl) ? product.imgUrl[0] : product.imgUrl;
-            let cleanImgPath = imgPath ? imgPath.replace('../', '') : '';
-            const fullImageUrl = `${currentSiteUrl}/${cleanImgPath}`;
+    const phoneNumber = "2348185727263";
+    
+    // Use your actual domain here
+    const currentSiteUrl = "https://www.yrnthejeweller.com.ng"; 
+    
+    let imgPath = Array.isArray(product.imgUrl) ? product.imgUrl[0] : product.imgUrl;
+    
+    // 1. Remove the '../' from the start
+    let cleanImgPath = imgPath ? imgPath.replace('../', '') : '';
+    
+    // 2. Encode the path to fix spaces (replaces ' ' with '%20')
+    let encodedImgPath = encodeURI(cleanImgPath);
+    
+    const fullImageUrl = `${currentSiteUrl}/${encodedImgPath}`;
 
-            // Structuring message so Link Picture shows up clearly
-            const message = `Check out this piece: ${fullImageUrl}\n\n` +
-                            `📌 *Item:* ${product.name}\n` +
-                            `⚖️ *Weight:* ${product.grams}\n` +
-                            `💎 *Quality:* ${product.quality}`;
+    // The message includes the disclaimer in simple English as requested
+    const message = `Check out this piece: ${fullImageUrl}\n\n` +
+                    `📌 *Item:* ${product.name}\n` +
+                    `⚖️ *Weight:* ${product.grams}\n` +
+                    `💎 *Quality:* ${product.quality}\n\n` +
+                    `*Note:* Prices change as the market moves. The final price depends on the gold and exchange rates when you are ready to pay.`;
 
-            return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-        }
+    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+}
 
-        function renderProducts(productsToRender) {
-            grid.innerHTML = '';
-            if (productsToRender.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #666;">No pieces found.</div>';
-                return;
-            }
+        // function generateWhatsAppLink(product) {
+        //     const phoneNumber = "2348185727263";
+        //     const currentSiteUrl = window.location.origin; 
+        //     let imgPath = Array.isArray(product.imgUrl) ? product.imgUrl[0] : product.imgUrl;
+        //     let cleanImgPath = imgPath ? imgPath.replace('../', '') : '';
+        //     const fullImageUrl = `${currentSiteUrl}/${cleanImgPath}`;
+
+        //     // Structuring message so Link Picture shows up clearly
+        //     const message = `Check out this piece: ${fullImageUrl}\n\n` +
+        //                     `📌 *Item:* ${product.name}\n` +
+        //                     `⚖️ *Weight:* ${product.grams}\n` +
+        //                     `💎 *Quality:* ${product.quality}`;
+
+        //     return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        // }
+
+        // function renderProducts(productsToRender) {
+        //     grid.innerHTML = '';
+        //     if (productsToRender.length === 0) {
+        //         grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #666;">No pieces found.</div>';
+        //         return;
+        //     }
 
             productsToRender.forEach((p, idx) => {
                 const images = Array.isArray(p.imgUrl) ? p.imgUrl : [p.imgUrl];
