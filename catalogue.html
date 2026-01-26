@@ -481,7 +481,8 @@
 
     <script>
         // --- DATA COLLECTION ---
-        const ALL_PRODUCTS = [
+        const ALL_PRODUCTS =
+         [
             { id: 1, name: "Franck Muller Watch v2", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/franck muller-watch-2.jpg"] },
             { id: 2, name: "Franck Muller Watch v3", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/franck muller-watch-3.jpg"] },
             { id: 3, name: "Franck Muller Watch v4", category: ["watch"], status: { text: 'Elite', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "Premium", quality: "Luxury", sold: false, imgUrl: ["../watches/franck muller-watch-4.jpg"] },
@@ -576,31 +577,221 @@
             { id: 85, name: "Heavy Twist Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "70.0g", quality: "18k", sold: false, imgUrl: ["../necklace/twist chain-70.0g-necklace-18k.jpg", "../necklace/twist chain-70.0g-necklace-18k-gram.jpg"] },
 
 
+             // New Items January 2024
+            {
+                id: 101,
+                name: "Classic Bangle",
+                category: ["bangle"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "7.6g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../bangles/jan-claassic bangle-7.6g-bangles-18k.jpg", "../bangles/jan-classic bangle-7.6g-bangles-18k-gram.jpg"]
+            },
+            {
+                id: 102,
+                name: "Classic Bangle",
+                category: ["bangle"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "7.8g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../bangles/jan-Doreen chain-7.8g-bangles-18k.jpg", "../bangles/jan-Doreen chain-7.8g-bangles-18k-gram.jpg"]
+            },
+            {
+                id: 103,
+                name: "Classic Bangle",
+                category: ["bangle"],
+                status: { text: 'Hot', val: 'hot', color: '#ff5252', bg: 'rgba(255,82,82,0.1)' },
+                grams: "15.3g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../bangles/jan-Doreen chain-15.3g-bangles-18k.jpg", "../bangles/jan-Doreen chain-15.3g-bangles-18k-gram.jpg"]
+            },
+            {
+                id: 104,
+                name: "Cuban Chain",
+                category: ["necklace"],
+                status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' },
+                grams: "77.3g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-cuban chain-77.3g-necklace-18k.jpg", "../necklace/jan-cuban chain-77.3g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 105,
+                name: "Cuban Chain",
+                category: ["necklace"],
+                status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' },
+                grams: "130.1g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-cuban chain-130.1g-necklace-18k.jpg", "../necklace/jan-cuban-chain-130.1g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 106,
+                name: "Curb Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "11.9g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-curb chain-11.9g-necklace-18k.jpg", "../necklace/jan-curb chain-11.9g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 107,
+                name: "Doreen Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "3.9g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-Doreen chain-3.9g-necklace-18k-2.jpg", "../necklace/jan-Doreen chain-3.9g-necklace-18k-gram-2.jpg"]
+            },
+            {
+                id: 108,
+                name: "Doreen Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "6.2g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-Doreen chain-6.2g-necklace-18k.jpg", "../necklace/jan-Doreen chain-6.2g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 109,
+                name: "Doreen Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "6.9g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-Doreen chain-6.9g-necklace-18k.jpg", "../necklace/jan-Doreen chain-6.9g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 110,
+                name: "Doreen Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "7.9g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-Doreen chain-7.9g-necklace-18k.jpg", "../necklace/jan-Doreen chain-7.9g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 111,
+                name: "Doreen Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "8.1g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-Doreen chain-8.1g-necklace-18k.jpg", "../necklace/jan-Doreen chain-8.1g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 112,
+                name: "Doreen Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "8.5g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-Doreen chain-8.5g-necklace-18k.jpg", "../necklace/jan-Doreen chain-8.5g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 113,
+                name: "Franco Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "3.2g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-Franco chain-3.2g-necklace-18k.jpg", "../necklace/jan-Franco chain-3.2g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 114,
+                name: "Tiny Curb Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "3.7g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-tiny curb chain-3.7g-necklace-18k.jpg", "../necklace/jan-tiny curb chain-3.7g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 115,
+                name: "Twist Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "2.1g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-twist chain-2.1g-necklace-18k.jpg", "../necklace/jan-twist chain-2.1g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 116,
+                name: "Twist Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "3.1g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-twist chain-3.1g-necklace-18k.jpg", "../necklace/jan-twist chain-3.1g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 117,
+                name: "Twist Chain",
+                category: ["necklace"],
+                status: { text: 'Hot', val: 'hot', color: '#ff5252', bg: 'rgba(255,82,82,0.1)' },
+                grams: "59.7g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-twist chain-59.7g-necklace-18k.jpg", "../necklace/jan-twist-chain-59.7g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 118,
+                name: "Twist Chain",
+                category: ["necklace"],
+                status: { text: 'Hot', val: 'hot', color: '#ff5252', bg: 'rgba(255,82,82,0.1)' },
+                grams: "69.8g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-twist chain-69.8g-necklace-18k.jpg", "../necklace/jan-twist chain-69.8g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 119,
+                name: "Twist Chain",
+                category: ["necklace"],
+                status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' },
+                grams: "112.1g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-twist chain-112.1g-necklace-18k.jpg", "../necklace/jan-twist chain-112.1g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 120,
+                name: "Twist Chain",
+                category: ["necklace"],
+                status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' },
+                grams: "122.9g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-twist chain-122.9g-necklace-18k.jpg", "../necklace/jan-twist chain-122.9g-necklace-18k-gram.jpg"]
+            },
+            {
+                id: 121,
+                name: "Van Cleef Chain",
+                category: ["necklace"],
+                status: { text: 'New', val: 'new', color: '#66bb6a', bg: 'rgba(76,175,80,0.1)' },
+                grams: "3.8g",
+                quality: "18k",
+                sold: false,
+                imgUrl: ["../necklace/jan-vanclef chain-3.8g-necklace-18k.jpg", "../necklace/jan-vanclef chain-3.8g-necklace-18k-gram.jpg"]
+            }
 
-  { id: 86, name: "Cuban Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "77.3g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-cuban chain-77.3g-necklace-18k.jpg", "../necklace/jan-cuban chain-77.3g-necklace-18k-gram.jpg"] },
-  { id: 87, name: "Cuban Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "130.1g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-cuban chain-130.1g-necklace-18k.jpg", "../necklace/jan-cuban chain-130.1g-necklace-18k-gram.jpg"] },
-  { id: 88, name: "Curb Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "11.9g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-curb chain-11.9g-necklace-18k.jpg", "../necklace/jan-curb chain-11.9g-necklace-18k-gram.jpg"] },
-  { id: 89, name: "Doreen Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "3.9g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-doreen chain-3.9g-necklace-18k-2.jpg", "../necklace/jan-doreen chain-3.9g-necklace-18k-gram-2.jpg"] },
-  { id: 90, name: "Doreen Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "6.2g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-doreen chain-6.2g-necklace-18k.jpg", "../necklace/jan-doreen chain-6.2g-necklace-18k-gram.jpg"] },
-  { id: 91, name: "Doreen Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "6.9g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-doreen chain-6.9g-necklace-18k.jpg", "../necklace/jan-doreen chain-6.9g-necklace-18k-gram.jpg"] },
-  { id: 92, name: "Doreen Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "7.9g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-doreen chain-7.9g-necklace-18k.jpg", "../necklace/jan-doreen chain-7.9g-necklace-18k-gram.jpg"] },
-  { id: 93, name: "Doreen Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "8.1g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-doreen chain-8.1g-necklace-18k.jpg", "../necklace/jan-doreen chain-8.1g-necklace-18k-gram.jpg"] },
-  { id: 94, name: "Doreen Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "8.5g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-doreen chain-8.5g-necklace-18k.jpg", "../necklace/jan-doreen chain-8.5g-necklace-18k-gram.jpg"] },
-  { id: 95, name: "Doreen Bangles", category: ["bangles"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "7.6g", quality: "18k", sold: false, imgUrl: ["../bangles/jan-doreen chain-7.6g-bangles-18k.jpg", "../bangles/jan-doreen chain-7.6g-bangles-18k-gram.jpg"] },
-  { id: 96, name: "Doreen Bangles", category: ["bangles"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "7.8g", quality: "18k", sold: false, imgUrl: ["../bangles/jan-doreen chain-7.8g-bangles-18k.jpg", "../bangles/jan-doreen chain-7.8g-bangles-18k-gram.jpg"] },
-  { id: 97, name: "Doreen Bangles", category: ["bangles"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "15.3g", quality: "18k", sold: false, imgUrl: ["../bangles/jan-doreen chain-15.3g-bangles-18k.jpg", "../bangles/jan-doreen chain-15.3g-bangles-18k-gram.jpg"] },
-  { id: 98, name: "Twist Necklace", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "2.1g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-twist chain-2.1g-necklace-18k.jpg", "../necklace/jan-twist chain-2.1g-necklace-18k-gram.jpg"] },
-  { id: 99, name: "Twist Necklace", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "3.1g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-twist chain-3.1g-necklace-18k.jpg", "../necklace/jan-twist chain-3.1g-necklace-18k-gram.jpg"] },
-  { id: 100, name: "Heavy Twist Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "59.7g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-twist chain-59.7g-necklace-18k.jpg", "../necklace/jan-twist chain-59.7g-necklace-18k-gram.jpg"] },
-  { id: 101, name: "Heavy Twist Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "69.8g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-twist chain-69.8g-necklace-18k.jpg", "../necklace/jan-twist chain-69.8g-necklace-18k-gram.jpg"] },
-  { id: 102, name: "Heavy Twist Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "112.1g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-twist chain-112.1g-necklace-18k.jpg", "../necklace/jan-twist chain-112.1g-necklace-18k-gram.jpg"] },
-  { id: 103, name: "Heavy Twist Chain", category: ["necklace"], status: { text: 'Rare', val: 'rare', color: '#D4AF37', bg: 'rgba(212,175,55,0.1)' }, grams: "122.9g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-twist chain-122.9g-necklace-18k.jpg", "../necklace/jan-twist chain-122.9g-necklace-18k-gram.jpg"] },
-  { id: 104, name: "Franco Chain", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "3.2g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-franco chain-3.2g-necklace-18k.jpg", "../necklace/jan-franco chain-3.2g-necklace-18k-gram.jpg"] },
-  { id: 105, name: "Tiny Curb Necklace", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "3.7g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-tiny curb chain-3.7g-necklace-18k.jpg", "../necklace/jan-tiny curb chain-3.7g-necklace-18k-gram.jpg"] },
-  { id: 106, name: "Van Cleef Necklace", category: ["necklace"], status: { text: 'New', val: 'new', color: '#28a745', bg: 'rgba(40,167,69,0.1)' }, grams: "3.8g", quality: "18k", sold: false, imgUrl: ["../necklace/jan-vanclef chain-3.8g-necklace-18k.jpg", "../necklace/jan-vanclef chain-3.8g-necklace-18k-grm.jpg"] }
-
-
-        
+                    
+          
+                    
         ];
 
         const grid = document.getElementById('productGrid');
